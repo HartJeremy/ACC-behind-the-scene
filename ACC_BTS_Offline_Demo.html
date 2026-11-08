@@ -1,0 +1,2727 @@
+<!doctype html><html lang="en"><head><meta charset="UTF-8"/><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"/><meta name="theme-color" content="#0d121e"/><title>ACC · Behind the Scenes — Demo</title><style>:root{color-scheme:dark;--bg:#0d121e;--sidebar:#0b101b;--panel:#151d2b;--panel2:#1b2637;--panel3:#202f42;--border:#2a3547;--text:#f3f3f0;--muted:#a3aebe;--quiet:#79879a;--gold:#d3b17a;--gold2:#e8c78e;--green:#6dbca4;--warning:#edac7d;--radius:17px;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Inter,Roboto,Helvetica,Arial,sans-serif;font-synthesis:none;text-rendering:optimizeLegibility;-webkit-font-smoothing:antialiased}
+*{box-sizing:border-box}html,body{margin:0;min-height:100%;background:var(--bg);color:var(--text)}body{font-size:14px}button,input,select,textarea{font:inherit}button{cursor:pointer;color:inherit}button:disabled{cursor:wait;opacity:.65}a{color:var(--gold2)}.shell{display:flex;min-height:100dvh}.sidebar{display:none}.workspace{width:100%;min-width:0}.topbar{height:67px;display:flex;align-items:center;justify-content:space-between;padding:0 22px;border-bottom:1px solid var(--border);background:rgba(13,18,30,.94);position:sticky;top:0;z-index:15;backdrop-filter:blur(12px)}.top-title{display:flex;align-items:center;gap:11px}.top-title strong{font-size:14px;letter-spacing:.02em}.top-title strong span{color:var(--muted);font-weight:500}.top-title small{display:block;color:var(--quiet);margin-top:3px;font-size:11px}.small-logo,.brand-symbol,.brand-mark{display:grid;place-items:center;border:1px solid rgba(211,177,122,.28);border-radius:11px;background:#242a35;color:var(--gold);width:37px;height:37px}.top-actions{display:flex;align-items:center;gap:16px}.top-mode{font-size:11px;color:var(--muted);display:none}.content{max-width:1400px;margin:auto;padding:25px 18px 112px}.page-top{display:flex;align-items:flex-start;justify-content:space-between;gap:16px;margin:3px 0 24px}.page-top h1{font-size:clamp(27px,4vw,36px);letter-spacing:-.05em;line-height:1.15;margin:7px 0}.page-top p{color:var(--muted);margin:6px 0 0;line-height:1.5;font-size:13px;max-width:740px}.eyebrow{font-size:10px;letter-spacing:.16em;color:var(--quiet);font-weight:800;text-transform:uppercase}.gold-text{color:var(--gold)}.btn{border:1px solid var(--border);display:inline-flex;gap:7px;justify-content:center;align-items:center;white-space:nowrap;padding:10px 14px;border-radius:10px;font-weight:650;font-size:12px;background:var(--panel2);min-height:38px;transition:background .12s;line-height:1.15;text-decoration:none}.btn:hover{background:#2b3b51}.btn.primary{background:var(--gold);border-color:var(--gold);color:#1d1c1c}.btn.primary:hover{background:var(--gold2)}.btn.subtle{background:#29394e;border-color:#354760}.btn.ghost{background:transparent;border-color:var(--border);color:var(--muted)}.btn.soft{background:#233a37;color:var(--green);border-color:#32594d}.btn.text{background:transparent;border-color:transparent;color:var(--gold);padding:8px}.btn.danger{background:transparent;color:#f69e97;border-color:#6b333b;margin-right:auto}.btn.icon-btn{padding:8px;min-width:36px;min-height:36px}.btn.full{width:100%}.stats{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px;margin-bottom:15px}.stat{border:1px solid var(--border);background:var(--panel);padding:16px 15px;border-radius:14px;display:flex;flex-direction:column;gap:5px}.stat b{font-size:25px;letter-spacing:-.06em}.stat span{font-size:11px;color:var(--muted)}.session-hero{background:linear-gradient(135deg,#233044 0%,#172131 65%);border:1px solid #39465b;border-radius:18px;padding:20px;margin:0 0 27px;box-shadow:0 14px 30px #00000016}.hero-head{display:flex;justify-content:space-between;gap:12px;align-items:flex-start}.hero-head h2{font-size:26px;letter-spacing:-.04em;margin:6px 0 3px}.hero-head p{margin:0;display:flex;align-items:center;gap:5px;color:#bbc4d2;font-size:12px}.screen-label{display:block;color:#a7b4c1;font-size:10px;margin:19px 0 7px;text-transform:uppercase;font-weight:800;letter-spacing:.11em}.input{width:100%;background:#101a28;border:1px solid #364456;border-radius:11px;padding:11px 12px;color:var(--text);outline:0;min-height:42px}.input:focus{border-color:var(--gold);box-shadow:0 0 0 2px #d3b17a22}.input::placeholder{color:#728297}.hero-plan{margin:17px 0 14px;border-top:1px solid #38475a;padding-top:16px}.hero-plan>span{font-size:10px;letter-spacing:.12em;color:var(--gold);font-weight:800;display:block;margin-bottom:8px}.hero-plan strong{display:block;font-size:16px;line-height:1.3}.hero-plan p{margin:8px 0 0;color:#bfcbd8;line-height:1.6;font-size:13px}.progress-label{display:flex;justify-content:space-between;font-size:11px;color:#c7d0dd;margin:18px 0 8px}.progress{height:6px;border-radius:99px;background:#39485a;overflow:hidden}.progress>span{display:block;height:100%;background:var(--gold);border-radius:99px}.notice{display:flex;align-items:flex-start;gap:9px;padding:12px 13px;border:1px solid #485063;background:#27334588;border-radius:11px;font-size:12px;color:#ccd4df;line-height:1.55;margin-top:16px}.notice svg{flex-shrink:0;color:var(--gold)}.pickup{padding-top:13px;line-height:1.5;color:#abbaca;font-size:12px}.pickup b{color:var(--text)}.hero-actions{display:flex;gap:8px;margin-top:15px;flex-wrap:wrap}.section-head{display:flex;align-items:flex-end;justify-content:space-between;gap:12px;margin:18px 0 13px}.section-head h2{margin:0;font-size:18px;letter-spacing:-.03em}.section-head p{color:var(--quiet);font-size:11px;margin:5px 0 0}.shot-grid{display:grid;grid-template-columns:minmax(0,1fr);gap:12px}.shot-card{background:var(--panel);border:1px solid var(--border);border-radius:15px;padding:15px;min-width:0;display:flex;flex-direction:column;align-items:stretch}.shot-card.shot-done{border-color:#35574e}.shot-top{display:flex;justify-content:space-between;align-items:center;gap:9px;margin-bottom:12px}.shot-id{font-size:11px;color:var(--gold);font-weight:850;letter-spacing:.08em}.shot-tags{display:flex;gap:6px;flex-wrap:wrap;justify-content:flex-end}.chip{display:inline-flex;align-items:center;border:1px solid #3a4759;padding:4px 8px;border-radius:99px;background:#293445;color:#b7c4d2;font-size:10px;font-weight:700;line-height:1}.chip.gold{color:var(--gold);border-color:#6a573f;background:#352c26}.chip.done{color:var(--green);border-color:#356454;background:#193b34}.chip.warn{color:var(--warning);border-color:#704939;background:#3b2827}.card-title-link{border:0;background:none;padding:0;text-align:left;font-size:15px;font-weight:740;letter-spacing:-.015em;display:flex;justify-content:space-between;align-items:center;gap:10px;line-height:1.35}.card-title-link svg{color:#77879a;flex-shrink:0}.card-title-link:hover{color:var(--gold)}.shot-tech{display:flex;gap:7px;align-items:center;color:var(--gold);font-size:12px;margin:10px 0 6px}.shot-instruction{line-height:1.57;color:#c1cbd8;font-size:12px;margin:6px 0 10px;flex:1}.muted-sm{font-size:11px;line-height:1.5;color:var(--quiet);margin:5px 0}.card-actions{display:flex;gap:7px;align-items:center;flex-wrap:wrap;margin-top:auto;padding-top:13px}.card-actions .btn{min-height:34px;padding:8px 10px}.footer-note{font-size:12px;color:var(--quiet);margin:25px 0}.filter-box{border:1px solid var(--border);background:var(--panel);padding:12px;border-radius:14px;display:flex;flex-direction:column;gap:11px;margin-bottom:14px}.search-wrap{display:flex;align-items:center;gap:9px;border:1px solid var(--border);background:#101826;border-radius:11px;padding:0 11px;color:var(--muted)}.search-wrap input{flex:1;min-width:0;background:transparent;border:0;outline:0;color:var(--text);padding:12px 0}.filter-row{display:grid;grid-template-columns:1fr 1fr;gap:8px}.filter-row #shot-category{grid-column:1/-1}.filter-row .input{padding:9px 10px;min-height:39px;font-size:12px}.list-summary{font-size:11px;color:var(--quiet);margin:9px 0 11px}.stories-layout{display:grid;grid-template-columns:minmax(0,1fr);gap:16px}.story-list-area.mobile-hide{display:none}.story-detail-area{display:none}.story-detail-area.mobile-show{display:block}.thread-list{background:var(--panel);border:1px solid var(--border);border-radius:14px;overflow:hidden}.thread-row{border:0;border-bottom:1px solid var(--border);background:transparent;width:100%;padding:16px 14px;display:flex;justify-content:space-between;align-items:center;gap:10px;text-align:left}.thread-row:last-child{border:0}.thread-row.active{background:#283547}.thread-row strong{display:block;font-size:13px}.thread-row span{display:block;font-size:11px;color:var(--quiet);margin-top:6px}.thread-row svg{color:var(--quiet)}.story-detail{background:var(--panel);border:1px solid var(--border);border-radius:16px;padding:17px}.story-detail>.progress{margin:17px 0 20px}.detail-panel-head{display:flex;justify-content:space-between;align-items:flex-start;gap:10px}.detail-panel-head h2{margin:6px 0;font-size:23px;letter-spacing:-.04em}.detail-panel-head p{margin:4px 0;color:var(--quiet);font-size:12px;display:flex;align-items:center;gap:4px}.beat-card{padding:15px 0;border-top:1px solid var(--border)}.beat-head{display:flex;align-items:flex-start;gap:11px}.beat-no{width:30px;height:30px;border-radius:9px;background:#25354a;color:var(--gold);font-size:12px;font-weight:800;display:grid;place-items:center;flex-shrink:0}.beat-copy{flex:1;min-width:0}.beat-copy strong{display:block;font-size:14px;line-height:1.4;margin:0 0 7px}.beat-copy .chip{margin:0 4px 4px 0}.beat-card>p{color:#c6d0dc;font-size:12px;line-height:1.6;margin:12px 0}.detail-line{padding:9px 0;border-bottom:1px solid #303b4b;display:grid;grid-template-columns:110px minmax(0,1fr);gap:11px;font-size:12px}.detail-line>span{color:var(--quiet)}.detail-line p{margin:0;color:#dae0e8;line-height:1.55;overflow-wrap:anywhere;white-space:pre-line}.beat-action{display:flex;gap:7px;margin-top:12px}.detail-card{margin:17px 0 26px}.space-top{margin-top:15px}.mobile-only{display:block;margin-bottom:12px}.footage-grid{display:grid;gap:12px}.footage-card{border:1px solid var(--border);border-radius:15px;background:var(--panel);padding:17px;min-width:0}.footage-card small{font-size:11px;color:var(--quiet)}.footage-card h3{margin:7px 0 5px;font-size:17px}.footage-card>p{color:var(--muted);line-height:1.6;font-size:12px}.filename{display:flex;align-items:center;gap:9px;padding:10px 11px;background:#111b2a;border-radius:10px;overflow-wrap:anywhere;color:#d5dddf;font-size:12px}.footage-notes{white-space:pre-wrap}.note-panel{display:flex;gap:10px;align-items:flex-start;border:1px solid #435165;background:#202d3e;padding:14px;border-radius:12px;color:#becbd8;line-height:1.5;margin-bottom:18px;font-size:12px}.note-panel svg{flex-shrink:0;color:var(--gold)}.settings-grid{display:grid;gap:13px}.settings-card{padding:20px;background:var(--panel);border:1px solid var(--border);border-radius:15px;min-width:0}.settings-card h3{font-size:16px;margin:0 0 14px;display:flex;gap:9px;align-items:center}.settings-card h3 svg{color:var(--gold)}.settings-card p{color:var(--muted);line-height:1.65;font-size:12px}.settings-card p b{color:var(--text)}.upload-label{cursor:pointer}.demo-strip{padding:9px 21px;background:#3a2d22;color:#f3d8ab;font-size:11px;line-height:1.55}.demo-strip .btn{font-size:11px;min-height:24px;padding:2px 8px}.bottom-nav{position:fixed;bottom:0;left:0;right:0;z-index:20;display:grid;grid-template-columns:repeat(4,1fr);padding:5px 9px calc(6px + env(safe-area-inset-bottom));background:#111a28f7;border-top:1px solid var(--border);backdrop-filter:blur(15px)}.bottom-link{border:0;background:transparent;display:flex;flex-direction:column;align-items:center;gap:4px;color:var(--quiet);font-size:10px;padding:7px 4px 5px;min-height:45px}.bottom-link.active{color:var(--gold2)}.bottom-link.active span{font-weight:750}.more-scrim{position:fixed;inset:0;z-index:25;background:#0008}.more-menu{position:fixed;bottom:calc(62px + env(safe-area-inset-bottom));left:13px;right:13px;z-index:26;background:#182334;border:1px solid #40516a;border-radius:17px;padding:12px;box-shadow:0 20px 60px #0008}.more-head{display:flex;align-items:center;justify-content:space-between;padding:6px 6px 12px}.more-menu .nav-link{width:100%;border:0;border-top:1px solid #344255;background:none;padding:14px 9px;text-align:left;display:flex;align-items:center;gap:12px}.more-menu .nav-link.active{color:var(--gold)}.modal-scrim{position:fixed;inset:0;background:#000b;z-index:50;backdrop-filter:blur(3px)}.modal{position:fixed;z-index:51;top:auto;bottom:0;left:0;right:0;max-height:94dvh;background:#182132;border:1px solid #415066;border-radius:20px 20px 0 0;box-shadow:0 0 60px #0007;overflow:auto;padding:18px 18px calc(22px + env(safe-area-inset-bottom))}.modal-head{display:flex;align-items:center;justify-content:space-between;gap:15px;border-bottom:1px solid var(--border);padding-bottom:16px;margin-bottom:17px}.modal-head h2{font-size:22px;margin:5px 0 0;letter-spacing:-.025em}.editor-grid{display:grid;gap:14px}.field{display:flex;flex-direction:column;gap:7px;min-width:0}.field span{font-weight:660;font-size:12px;color:#d9e0e9}.field textarea{min-height:93px;resize:vertical}.modal-actions{display:flex;justify-content:flex-end;gap:10px;border-top:1px solid var(--border);padding-top:17px;margin-top:19px;position:sticky;bottom:-23px;background:#182132;padding-bottom:10px;z-index:5}.modal-scroll{padding-bottom:20px}.detail-meta{display:flex;gap:7px;margin-bottom:15px}.modal-button-row{display:flex;gap:9px;margin-top:19px;flex-wrap:wrap}.comment-section{margin-top:28px;border-top:1px solid var(--border);padding-top:14px}.comment-section h3{font-size:16px}.comment{padding:12px 0;border-bottom:1px solid var(--border)}.comment b{font-size:11px;color:var(--gold)}.comment p{font-size:12px;line-height:1.6;color:#d2dae3}.comment-section form{display:flex;flex-direction:column;gap:8px;margin-top:14px}.comment-section form button{align-self:flex-start}.toast{position:fixed;bottom:90px;left:50%;transform:translate(-50%,12px);background:#24394a;border:1px solid #53657a;color:#eef4f8;box-shadow:0 15px 30px #0007;z-index:99;border-radius:12px;padding:13px 18px;max-width:calc(100vw - 40px);opacity:0;pointer-events:none;transition:opacity .15s,transform .15s;font-size:12px;text-align:center}.toast.show{opacity:1;transform:translate(-50%,0)}.toast.error{background:#462d31;border-color:#884b55}.empty{background:var(--panel);padding:28px 18px;text-align:center;border:1px dashed #465269;border-radius:13px;color:var(--muted);font-size:12px;line-height:1.7}.connection{display:flex;gap:8px;align-items:center;color:#9cb3a9;font-size:11px}.connection.demo{color:#b3a3a0}.dot{background:var(--green);border-radius:50%;width:7px;height:7px}.demo .dot{background:var(--gold)}.login-shell{min-height:100dvh;display:grid;place-items:center;padding:20px;background:radial-gradient(circle at 25% 0%,#243149 0%,#0d121e 50%)}.login-card{background:#182234;border:1px solid var(--border);padding:30px;border-radius:22px;max-width:440px;width:100%;box-shadow:0 24px 55px #0005}.login-card .brand-mark{width:54px;height:54px;margin-bottom:20px}.login-card h1{font-size:34px;letter-spacing:-.05em;margin:9px 0}.login-card p{line-height:1.6;color:var(--muted)}.login-card form{display:grid;gap:16px;margin-top:25px}.login-card label{display:grid;gap:9px;font-size:12px;font-weight:700}.tiny{font-size:11px;color:var(--quiet)!important;margin-top:30px}.splash,.boot{display:grid;place-items:center;min-height:100dvh;color:var(--gold);font-size:18px;letter-spacing:.04em}.boot span{font-size:11px;color:var(--muted)}
+@media(min-width:700px){.content{padding:32px 28px 96px}.shot-grid{grid-template-columns:repeat(2,minmax(0,1fr))}.stats{gap:14px}.stat{padding:19px 20px}.stat b{font-size:31px}.session-hero{padding:24px 28px}.filter-row{grid-template-columns:1fr 1fr 1.7fr}.filter-row #shot-category{grid-column:auto}.stories-layout{grid-template-columns:280px minmax(0,1fr)}.story-list-area,.story-list-area.mobile-hide{display:block}.story-detail-area,.story-detail-area.mobile-show{display:block}.mobile-only{display:none}.footage-grid,.settings-grid{grid-template-columns:repeat(2,minmax(0,1fr))}.modal{top:50%;left:50%;bottom:auto;right:auto;transform:translate(-50%,-50%);border-radius:18px;width:min(740px,calc(100% - 40px));max-height:90dvh;padding:22px 26px}.editor-grid{grid-template-columns:repeat(2,minmax(0,1fr))}.field.wide{grid-column:1/-1}.top-mode{display:block}.modal-actions{bottom:-24px}.footer-note{margin-bottom:0}}
+@media(min-width:980px){.sidebar{display:flex;position:sticky;top:0;height:100dvh;width:250px;flex-shrink:0;flex-direction:column;background:var(--sidebar);border-right:1px solid var(--border);padding:25px 14px}.sidebar .brand{display:flex;align-items:center;gap:10px;padding:0 9px;margin-bottom:37px}.brand strong{font-size:17px;letter-spacing:.075em;display:block}.brand span{display:block;font-size:9px;letter-spacing:.17em;color:var(--gold);margin-top:5px;font-weight:750}.sidebar-caption{color:#738096;letter-spacing:.14em;font-weight:800;font-size:10px;padding:0 16px;margin-bottom:14px}.sidebar nav{display:grid;gap:5px}.sidebar .nav-link{display:flex;align-items:center;gap:11px;padding:13px 14px;border:1px solid transparent;border-radius:11px;background:transparent;color:#9eaabd;text-align:left;font-weight:650}.sidebar .nav-link.active{background:#283346;color:var(--gold2);border-color:#3c4860}.sidebar .nav-link:hover{background:#222e40}.side-bottom{margin-top:auto;padding:12px 12px 4px}.side-note{display:flex;align-items:center;gap:10px;color:var(--quiet);font-size:12px;line-height:1.5;margin-bottom:22px}.connection{font-size:10px}.workspace{flex:1}.bottom-nav{display:none}.topbar{padding:0 30px}.content{padding:35px 36px 65px}.demo-strip{padding-left:30px}.shot-grid{grid-template-columns:repeat(2,minmax(0,1fr))}.stories-layout{grid-template-columns:310px minmax(0,1fr)}.top-add{display:inline-flex}}
+@media(min-width:1400px){.content{padding:37px 48px 70px}.shot-grid{grid-template-columns:repeat(3,minmax(0,1fr))}.small-grid{grid-template-columns:repeat(2,minmax(0,1fr))}.stories-layout{grid-template-columns:340px minmax(0,1fr)}.session-hero{max-width:980px}}
+@media(max-width:400px){.page-top{flex-wrap:wrap}.page-top .btn{font-size:11px}.top-add{display:none}.topbar{padding:0 14px}.top-mode{display:none}.top-title strong{font-size:12px}.stat{padding:12px}.stat b{font-size:23px}.card-actions .btn{font-size:11px;padding:7px}}
+@media(prefers-reduced-motion:reduce){*,*:before,*:after{scroll-behavior:auto!important;transition:none!important}}
+
+/* v3 optional evidence wall */
+.board-toolbox{display:flex;align-items:end;flex-wrap:wrap;gap:12px;background:var(--panel);border:1px solid var(--border);padding:14px;border-radius:14px;margin-bottom:12px}
+.board-toolbox>.field{flex:1;min-width:190px}.board-check{display:flex;gap:8px;align-items:center;font-size:12px;color:var(--text);min-height:40px}.board-check input{accent-color:var(--gold)}.board-key{display:flex;gap:8px;align-items:center;color:var(--muted);font-size:11px;flex-wrap:wrap}.legend-string{display:inline-block;width:30px;border-top:2px solid #b65f59;margin-left:3px}.legend-string.idea{border-top-style:dashed;border-top-color:var(--gold)}.legend-string.auto{border-top-style:dotted;border-top-color:#729fb6}
+.board-scroller{width:100%;overflow:auto;overscroll-behavior-inline:contain;border:1px solid #594f47;border-radius:17px;background:#272722;box-shadow:inset 0 1px 15px #0008}.board-scroller:focus-visible{outline:2px solid var(--gold)}
+.board-surface{position:relative;background:radial-gradient(circle at 35% 15%,#3d3930 0%,#302f2a 55%,#252725 100%);background-image:radial-gradient(#776c5744 1px,transparent 1px),linear-gradient(110deg,#38362e,#252724);background-size:13px 13px,100% 100%;box-shadow:inset 0 0 55px #0007}
+.board-wires{position:absolute;inset:0;pointer-events:none;z-index:1}.string-path{stroke:#b7655c;stroke-width:2.6;stroke-linecap:round;fill:none;opacity:.85;filter:drop-shadow(0 1px 1px #0008)}.string-path.idea{stroke:var(--gold);stroke-dasharray:8 5;opacity:.8}.string-path.auto{stroke:#79a8c4;stroke-dasharray:2 5;stroke-width:2;opacity:.65}
+.evidence-card{z-index:2;position:absolute;width:178px;height:96px;border:1px solid #b6ac8b;border-radius:3px;background:#eee5c8;color:#332b24;box-shadow:3px 5px 8px #0007;text-align:left;padding:16px 11px 10px;display:flex;flex-direction:column;gap:5px;white-space:normal;transform:rotate(var(--turn));transition:transform .12s,box-shadow .12s}.evidence-card:hover,.evidence-card:focus-visible{transform:rotate(0deg) scale(1.03);box-shadow:0 0 0 3px #c79961,4px 7px 12px #0009;outline:0}.evidence-card.card{background:#dbe2dd;border-color:#91a59e}.evidence-kicker{font-size:9px;letter-spacing:.12em;font-weight:900;color:#75584d}.evidence-card.card .evidence-kicker{color:#476d6c}.evidence-card strong{font-size:13px;line-height:1.15;max-height:34px;overflow:hidden}.evidence-card small{font-size:10px;color:#6c6156;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}.paper-pin{position:absolute;top:5px;left:calc(50% - 5px);height:10px;width:10px;border-radius:50%;background:#b84e46;border:2px solid #8b2825;box-shadow:1px 2px 2px #0008}.evidence-card.card .paper-pin{background:#5a8895;border-color:#345962}
+.board-hint{font-size:11px;color:var(--muted);line-height:1.6;margin:10px 0 22px}.connection-list{display:grid;grid-template-columns:1fr;gap:9px;margin-bottom:17px}.connection-item{border:1px solid var(--border);background:var(--panel);padding:13px 14px;border-radius:12px;display:flex;align-items:flex-start;justify-content:space-between;flex-wrap:wrap;gap:12px}.connection-item strong{font-size:13px;line-height:1.5}.connection-item p{color:var(--muted);font-size:12px;line-height:1.5;margin:5px 0 0}.connection-item .card-actions{margin-top:0}.board-blank{position:absolute;top:220px;left:100px;font-size:15px;color:#f3d7b9}
+@media(min-width:1000px){.connection-list{grid-template-columns:repeat(2,minmax(0,1fr))}}
+
+.board-surface{margin:0 auto}
+@media(max-width:699px){.board-scroller{max-height:610px;overflow:auto}.board-toolbox{padding:12px}.board-key{font-size:10px}}
+</style></head><body><div id="app"></div><div id="modal-root"></div><div id="toast" aria-live="polite"></div><script>const initialData = {
+  "shots": [
+    {
+      "id": "E01",
+      "category": "01 | Place & atmosphere",
+      "priority": "Must",
+      "title": "Colonial Theatre exterior",
+      "technique": "Locked wide",
+      "instructions": "Stand far enough back to capture sign, entrance and building. Keep level; hold 10–12 sec.",
+      "purpose": "Series/episode opening",
+      "opportunity": "Any rehearsal",
+      "people": "None",
+      "thread": "General",
+      "status": "Not shot",
+      "captured_at": null,
+      "camera": "",
+      "file_ref": "",
+      "notes": "",
+      "review_notes": "",
+      "version": 1
+    },
+    {
+      "id": "E02",
+      "category": "01 | Place & atmosphere",
+      "priority": "Useful",
+      "title": "Marquee or ACC signage",
+      "technique": "Slow tilt up",
+      "instructions": "Start beneath the sign; slowly tilt up until the full title fills the frame. Hold at end.",
+      "purpose": "Title/establishing transition",
+      "opportunity": "Any rehearsal",
+      "people": "None",
+      "thread": "General",
+      "status": "Not shot",
+      "captured_at": null,
+      "camera": "",
+      "file_ref": "",
+      "notes": "",
+      "review_notes": "",
+      "version": 1
+    },
+    {
+      "id": "E03",
+      "category": "01 | Place & atmosphere",
+      "priority": "Must",
+      "title": "Main entrance doors",
+      "technique": "Slow push-in",
+      "instructions": "Start several paces away and walk toward closed doors without entering the frame yourself.",
+      "purpose": "Public side of theater → backstage transition",
+      "opportunity": "Any rehearsal",
+      "people": "None",
+      "thread": "General",
+      "status": "Not shot",
+      "captured_at": null,
+      "camera": "",
+      "file_ref": "",
+      "notes": "",
+      "review_notes": "",
+      "version": 1
+    },
+    {
+      "id": "E04",
+      "category": "01 | Place & atmosphere",
+      "priority": "Must",
+      "title": "Stage door — outside",
+      "technique": "Locked medium + detail",
+      "instructions": "Record a steady medium shot of the real stage door; then a separate close-up of its sign/handle.",
+      "purpose": "Backstage world establishing",
+      "opportunity": "Any rehearsal",
+      "people": "None",
+      "thread": "General",
+      "status": "Not shot",
+      "captured_at": null,
+      "camera": "",
+      "file_ref": "",
+      "notes": "",
+      "review_notes": "",
+      "version": 1
+    },
+    {
+      "id": "E05",
+      "category": "01 | Place & atmosphere",
+      "priority": "Useful",
+      "title": "Stage door — inside",
+      "technique": "Doorway reveal",
+      "instructions": "From inside, frame the closed door and corridor; slow sideways reveal if empty.",
+      "purpose": "Entering theater transition",
+      "opportunity": "Space clear",
+      "people": "None",
+      "thread": "General",
+      "status": "Not shot",
+      "captured_at": null,
+      "camera": "",
+      "file_ref": "",
+      "notes": "",
+      "review_notes": "",
+      "version": 1
+    },
+    {
+      "id": "E06",
+      "category": "01 | Place & atmosphere",
+      "priority": "Must",
+      "title": "Empty auditorium and stage",
+      "technique": "Centered locked wide",
+      "instructions": "From middle/back seats, make stage symmetrical. Hold steady for 12–15 sec.",
+      "purpose": "Establishing, scene breaks",
+      "opportunity": "Space clear",
+      "people": "None",
+      "thread": "General",
+      "status": "Not shot",
+      "captured_at": null,
+      "camera": "",
+      "file_ref": "",
+      "notes": "",
+      "review_notes": "",
+      "version": 1
+    },
+    {
+      "id": "E07",
+      "category": "01 | Place & atmosphere",
+      "priority": "Useful",
+      "title": "Auditorium center aisle",
+      "technique": "Forward tracking",
+      "instructions": "Walk slowly toward stage with both sides of seating balanced. No sudden panning.",
+      "purpose": "Transition toward rehearsal",
+      "opportunity": "Space clear",
+      "people": "None",
+      "thread": "General",
+      "status": "Not shot",
+      "captured_at": null,
+      "camera": "",
+      "file_ref": "",
+      "notes": "",
+      "review_notes": "",
+      "version": 1
+    },
+    {
+      "id": "E08",
+      "category": "01 | Place & atmosphere",
+      "priority": "Useful",
+      "title": "Stage from the wings",
+      "technique": "Foreground reveal",
+      "instructions": "Begin partly behind curtain or scenic edge; slide sideways until the stage is visible.",
+      "purpose": "Backstage point of view",
+      "opportunity": "Space clear",
+      "people": "None",
+      "thread": "General",
+      "status": "Not shot",
+      "captured_at": null,
+      "camera": "",
+      "file_ref": "",
+      "notes": "",
+      "review_notes": "",
+      "version": 1
+    },
+    {
+      "id": "E09",
+      "category": "01 | Place & atmosphere",
+      "priority": "Useful",
+      "title": "Backstage empty hallway",
+      "technique": "One-point perspective",
+      "instructions": "Center the corridor vanishing point, hold 10 sec; optional slow push-in.",
+      "purpose": "Atmosphere / suspense",
+      "opportunity": "Space clear",
+      "people": "None",
+      "thread": "General",
+      "status": "Not shot",
+      "captured_at": null,
+      "camera": "",
+      "file_ref": "",
+      "notes": "",
+      "review_notes": "",
+      "version": 1
+    },
+    {
+      "id": "E10",
+      "category": "01 | Place & atmosphere",
+      "priority": "Useful",
+      "title": "Stage tape marks",
+      "technique": "Low-angle tracking",
+      "instructions": "Hold camera near floor, move along one tape line for 8 sec. Keep floor in focus.",
+      "purpose": "Blocking/organization visual",
+      "opportunity": "Any rehearsal",
+      "people": "None",
+      "thread": "General",
+      "status": "Not shot",
+      "captured_at": null,
+      "camera": "",
+      "file_ref": "",
+      "notes": "",
+      "review_notes": "",
+      "version": 1
+    },
+    {
+      "id": "E11",
+      "category": "01 | Place & atmosphere",
+      "priority": "Optional",
+      "title": "Empty greenroom",
+      "technique": "Static wide",
+      "instructions": "Frame chairs, tables, doors from one corner while room is empty; hold 10 sec.",
+      "purpose": "Waiting/rehearsal transitions",
+      "opportunity": "Space clear",
+      "people": "None",
+      "thread": "General",
+      "status": "Not shot",
+      "captured_at": null,
+      "camera": "",
+      "file_ref": "",
+      "notes": "Ask before recording personal items.",
+      "review_notes": "",
+      "version": 1
+    },
+    {
+      "id": "D01",
+      "category": "02 | Objects & details",
+      "priority": "Must",
+      "title": "Posted rehearsal schedule",
+      "technique": "Push-in then hold",
+      "instructions": "Record full schedule readable; make second shot pushing in on the busy day/time block.",
+      "purpose": "Schedule chaos and exposition",
+      "opportunity": "Any rehearsal",
+      "people": "None",
+      "thread": "General",
+      "status": "Not shot",
+      "captured_at": null,
+      "camera": "",
+      "file_ref": "",
+      "notes": "",
+      "review_notes": "",
+      "version": 1
+    },
+    {
+      "id": "D02",
+      "category": "02 | Objects & details",
+      "priority": "Must",
+      "title": "Annotated script",
+      "technique": "Overhead slow slide",
+      "instructions": "Film directly above open pages; travel gently across pencil notes. Avoid private notes.",
+      "purpose": "Preparation vs. rehearsal reality",
+      "opportunity": "Any rehearsal",
+      "people": "None",
+      "thread": "General",
+      "status": "Not shot",
+      "captured_at": null,
+      "camera": "",
+      "file_ref": "",
+      "notes": "",
+      "review_notes": "",
+      "version": 1
+    },
+    {
+      "id": "D03",
+      "category": "02 | Objects & details",
+      "priority": "Useful",
+      "title": "Script stack",
+      "technique": "Low-angle close-up",
+      "instructions": "Place camera at script height; slow sideways move across stacked pages.",
+      "purpose": "Montage/pacing",
+      "opportunity": "Any rehearsal",
+      "people": "None",
+      "thread": "General",
+      "status": "Not shot",
+      "captured_at": null,
+      "camera": "",
+      "file_ref": "",
+      "notes": "",
+      "review_notes": "",
+      "version": 1
+    },
+    {
+      "id": "D04",
+      "category": "02 | Objects & details",
+      "priority": "Useful",
+      "title": "Pencils, highlighters, notes",
+      "technique": "Short lateral slide",
+      "instructions": "Move left-to-right across the writing tools and rehearsal papers.",
+      "purpose": "Quick editing insert",
+      "opportunity": "Any rehearsal",
+      "people": "None",
+      "thread": "General",
+      "status": "Not shot",
+      "captured_at": null,
+      "camera": "",
+      "file_ref": "",
+      "notes": "",
+      "review_notes": "",
+      "version": 1
+    },
+    {
+      "id": "D05",
+      "category": "02 | Objects & details",
+      "priority": "Must",
+      "title": "Prop table overview",
+      "technique": "Medium lateral tracking",
+      "instructions": "Shoot the whole table, then move across distinctive props without touching them.",
+      "purpose": "Scene transition / practical work",
+      "opportunity": "Any rehearsal",
+      "people": "None",
+      "thread": "General",
+      "status": "Not shot",
+      "captured_at": null,
+      "camera": "",
+      "file_ref": "",
+      "notes": "",
+      "review_notes": "",
+      "version": 1
+    },
+    {
+      "id": "D06",
+      "category": "02 | Objects & details",
+      "priority": "Useful",
+      "title": "Single unusual prop",
+      "technique": "Over-serious push-in",
+      "instructions": "Frame an ordinary prop with room around it; push slowly into a detail.",
+      "purpose": "Deadpan mockumentary emphasis",
+      "opportunity": "Any rehearsal",
+      "people": "None",
+      "thread": "General",
+      "status": "Not shot",
+      "captured_at": null,
+      "camera": "",
+      "file_ref": "",
+      "notes": "",
+      "review_notes": "",
+      "version": 1
+    },
+    {
+      "id": "D07",
+      "category": "02 | Objects & details",
+      "priority": "Useful",
+      "title": "Costume rack",
+      "technique": "Sideways tracking",
+      "instructions": "Walk parallel to clothing at a fixed distance; leave each garment readable.",
+      "purpose": "Costume preparation",
+      "opportunity": "Any rehearsal",
+      "people": "None",
+      "thread": "General",
+      "status": "Not shot",
+      "captured_at": null,
+      "camera": "",
+      "file_ref": "",
+      "notes": "",
+      "review_notes": "",
+      "version": 1
+    },
+    {
+      "id": "D08",
+      "category": "02 | Objects & details",
+      "priority": "Optional",
+      "title": "Hats, shoes and accessories",
+      "technique": "Tilt reveal",
+      "instructions": "Start tight on an item low in frame; tilt upward to reveal the full arrangement.",
+      "purpose": "Costume texture",
+      "opportunity": "Any rehearsal",
+      "people": "None",
+      "thread": "General",
+      "status": "Not shot",
+      "captured_at": null,
+      "camera": "",
+      "file_ref": "",
+      "notes": "",
+      "review_notes": "",
+      "version": 1
+    },
+    {
+      "id": "D09",
+      "category": "02 | Objects & details",
+      "priority": "Must",
+      "title": "Empty chair",
+      "technique": "Deadpan locked-off",
+      "instructions": "Center an isolated chair; hold still for 12–15 sec with ambient sound.",
+      "purpose": "Absence joke, awkward silence",
+      "opportunity": "Any rehearsal",
+      "people": "None",
+      "thread": "General",
+      "status": "Not shot",
+      "captured_at": null,
+      "camera": "",
+      "file_ref": "",
+      "notes": "",
+      "review_notes": "",
+      "version": 1
+    },
+    {
+      "id": "D10",
+      "category": "02 | Objects & details",
+      "priority": "Useful",
+      "title": "Clock showing actual time",
+      "technique": "Static close-up",
+      "instructions": "Hold readable clock face for 10 sec without moving.",
+      "purpose": "Time pressure / rehearsal delay",
+      "opportunity": "Any rehearsal",
+      "people": "None",
+      "thread": "General",
+      "status": "Not shot",
+      "captured_at": null,
+      "camera": "",
+      "file_ref": "",
+      "notes": "",
+      "review_notes": "",
+      "version": 1
+    },
+    {
+      "id": "D11",
+      "category": "02 | Objects & details",
+      "priority": "Useful",
+      "title": "Cluttered worktable",
+      "technique": "Investigative pan",
+      "instructions": "Slowly scan the table as if investigating a major problem.",
+      "purpose": "Order vs. disorder",
+      "opportunity": "Any rehearsal",
+      "people": "None",
+      "thread": "General",
+      "status": "Not shot",
+      "captured_at": null,
+      "camera": "",
+      "file_ref": "",
+      "notes": "",
+      "review_notes": "",
+      "version": 1
+    },
+    {
+      "id": "D12",
+      "category": "02 | Objects & details",
+      "priority": "Useful",
+      "title": "Backstage directional sign",
+      "technique": "Slow documentary zoom",
+      "instructions": "Start with door/hall context; zoom gently to the posted wording.",
+      "purpose": "Transition or punchline",
+      "opportunity": "Any rehearsal",
+      "people": "None",
+      "thread": "General",
+      "status": "Not shot",
+      "captured_at": null,
+      "camera": "",
+      "file_ref": "",
+      "notes": "",
+      "review_notes": "",
+      "version": 1
+    },
+    {
+      "id": "D13",
+      "category": "02 | Objects & details",
+      "priority": "Useful",
+      "title": "Lighting and sound controls",
+      "technique": "Extreme close-up",
+      "instructions": "Frame labels, switches and cables, but do not handle the equipment.",
+      "purpose": "Technical-work montage",
+      "opportunity": "Any rehearsal",
+      "people": "None",
+      "thread": "General",
+      "status": "Not shot",
+      "captured_at": null,
+      "camera": "",
+      "file_ref": "",
+      "notes": "",
+      "review_notes": "",
+      "version": 1
+    },
+    {
+      "id": "D14",
+      "category": "02 | Objects & details",
+      "priority": "Optional",
+      "title": "Curtain or stage drapery",
+      "technique": "Locked texture shot",
+      "instructions": "Compose folds in sidelight; hold still for 10 sec.",
+      "purpose": "Atmosphere / transition",
+      "opportunity": "Any rehearsal",
+      "people": "None",
+      "thread": "General",
+      "status": "Not shot",
+      "captured_at": null,
+      "camera": "",
+      "file_ref": "",
+      "notes": "",
+      "review_notes": "",
+      "version": 1
+    },
+    {
+      "id": "D15",
+      "category": "02 | Objects & details",
+      "priority": "Optional",
+      "title": "Water bottles and coffee cups",
+      "technique": "Static medium",
+      "instructions": "Film naturally abandoned bottles and mugs; no names or private belongings prominent.",
+      "purpose": "Long-rehearsal montage",
+      "opportunity": "Any rehearsal",
+      "people": "None",
+      "thread": "General",
+      "status": "Not shot",
+      "captured_at": null,
+      "camera": "",
+      "file_ref": "",
+      "notes": "",
+      "review_notes": "",
+      "version": 1
+    },
+    {
+      "id": "D16",
+      "category": "02 | Objects & details",
+      "priority": "Useful",
+      "title": "Unfinished scenic detail",
+      "technique": "Static close-up",
+      "instructions": "Capture an unfinished edge or visible work in progress from a safe distance.",
+      "purpose": "Before/after set-building",
+      "opportunity": "Construction day",
+      "people": "None",
+      "thread": "General",
+      "status": "Not shot",
+      "captured_at": null,
+      "camera": "",
+      "file_ref": "",
+      "notes": "",
+      "review_notes": "",
+      "version": 1
+    },
+    {
+      "id": "R01",
+      "category": "03 | Adult rehearsal coverage",
+      "priority": "Must",
+      "title": "Rehearsal — wide master",
+      "technique": "Locked wide",
+      "instructions": "From approved location, capture 20–30 sec of adults rehearsing and surrounding context.",
+      "purpose": "Base scene coverage",
+      "opportunity": "Any rehearsal",
+      "people": "Adults",
+      "thread": "General",
+      "status": "Not shot",
+      "captured_at": null,
+      "camera": "",
+      "file_ref": "",
+      "notes": "",
+      "review_notes": "",
+      "version": 1
+    },
+    {
+      "id": "R02",
+      "category": "03 | Adult rehearsal coverage",
+      "priority": "Must",
+      "title": "Director giving notes",
+      "technique": "Stable medium",
+      "instructions": "Frame director and gestures while speaking; record natural sound, do not interrupt.",
+      "purpose": "Character / conflict / explanation",
+      "opportunity": "Any rehearsal",
+      "people": "Adults",
+      "thread": "Bryan vs Everybody",
+      "status": "Not shot",
+      "captured_at": null,
+      "camera": "",
+      "file_ref": "",
+      "notes": "",
+      "review_notes": "",
+      "version": 1
+    },
+    {
+      "id": "R03",
+      "category": "03 | Adult rehearsal coverage",
+      "priority": "Must",
+      "title": "Adult cast listening to notes",
+      "technique": "Reaction medium/close",
+      "instructions": "Stay on an adult listening to direction for full reaction; avoid cutting early.",
+      "purpose": "Reaction edit after interview",
+      "opportunity": "Any rehearsal",
+      "people": "Adults",
+      "thread": "General",
+      "status": "Not shot",
+      "captured_at": null,
+      "camera": "",
+      "file_ref": "",
+      "notes": "",
+      "review_notes": "",
+      "version": 1
+    },
+    {
+      "id": "R04",
+      "category": "03 | Adult rehearsal coverage",
+      "priority": "Must",
+      "title": "Scene reset after a stop",
+      "technique": "Wide observational",
+      "instructions": "Keep camera rolling as scene ends, people reposition, and rehearsal begins again.",
+      "purpose": "Rehearsal reality / mistakes",
+      "opportunity": "Any rehearsal",
+      "people": "Adults",
+      "thread": "Show Must Go On",
+      "status": "Not shot",
+      "captured_at": null,
+      "camera": "",
+      "file_ref": "",
+      "notes": "",
+      "review_notes": "",
+      "version": 1
+    },
+    {
+      "id": "R05",
+      "category": "03 | Adult rehearsal coverage",
+      "priority": "Useful",
+      "title": "Adults comparing scripts",
+      "technique": "Over-the-shoulder medium",
+      "instructions": "Shoot from one side, showing script and two adults consulting together.",
+      "purpose": "Collaboration / differing opinions",
+      "opportunity": "Any rehearsal",
+      "people": "Adults",
+      "thread": "General",
+      "status": "Not shot",
+      "captured_at": null,
+      "camera": "",
+      "file_ref": "",
+      "notes": "",
+      "review_notes": "",
+      "version": 1
+    },
+    {
+      "id": "R06",
+      "category": "03 | Adult rehearsal coverage",
+      "priority": "Useful",
+      "title": "Adult waiting for entrance",
+      "technique": "Static medium",
+      "instructions": "Find a permitted adult waiting in wings and hold through the cue if possible.",
+      "purpose": "Waiting / anticipation",
+      "opportunity": "Any rehearsal",
+      "people": "Adults",
+      "thread": "General",
+      "status": "Not shot",
+      "captured_at": null,
+      "camera": "",
+      "file_ref": "",
+      "notes": "",
+      "review_notes": "",
+      "version": 1
+    },
+    {
+      "id": "R07",
+      "category": "03 | Adult rehearsal coverage",
+      "priority": "Useful",
+      "title": "Pencil marking changes",
+      "technique": "Hands-only close-up",
+      "instructions": "Frame hand and page while actor notes a correction. Avoid faces if crowded.",
+      "purpose": "Useful neutral insert",
+      "opportunity": "Any rehearsal",
+      "people": "Adult hands",
+      "thread": "General",
+      "status": "Not shot",
+      "captured_at": null,
+      "camera": "",
+      "file_ref": "",
+      "notes": "",
+      "review_notes": "",
+      "version": 1
+    },
+    {
+      "id": "R08",
+      "category": "03 | Adult rehearsal coverage",
+      "priority": "Useful",
+      "title": "Adult adjusting prop or costume",
+      "technique": "Medium then close-up",
+      "instructions": "Capture start, adjustment and completion; do not interfere or reshoot unless asked.",
+      "purpose": "Rehearsal preparation",
+      "opportunity": "Any rehearsal",
+      "people": "Adults",
+      "thread": "General",
+      "status": "Not shot",
+      "captured_at": null,
+      "camera": "",
+      "file_ref": "",
+      "notes": "",
+      "review_notes": "",
+      "version": 1
+    },
+    {
+      "id": "R09",
+      "category": "03 | Adult rehearsal coverage",
+      "priority": "Useful",
+      "title": "Spontaneous adult laugh",
+      "technique": "Candid medium",
+      "instructions": "Let the laugh develop naturally; hold after the moment for reaction.",
+      "purpose": "Comic punctuation",
+      "opportunity": "Any rehearsal",
+      "people": "Adults",
+      "thread": "General",
+      "status": "Not shot",
+      "captured_at": null,
+      "camera": "",
+      "file_ref": "",
+      "notes": "",
+      "review_notes": "",
+      "version": 1
+    },
+    {
+      "id": "R10",
+      "category": "03 | Adult rehearsal coverage",
+      "priority": "Useful",
+      "title": "Adult glances at camera",
+      "technique": "Natural reaction close-up",
+      "instructions": "Only capture naturally occurring acknowledgment or a consensual pickup; do not demand it.",
+      "purpose": "Office-style awkward cutaway",
+      "opportunity": "Any rehearsal",
+      "people": "Adults",
+      "thread": "General",
+      "status": "Not shot",
+      "captured_at": null,
+      "camera": "",
+      "file_ref": "",
+      "notes": "",
+      "review_notes": "",
+      "version": 1
+    },
+    {
+      "id": "R11",
+      "category": "03 | Adult rehearsal coverage",
+      "priority": "Useful",
+      "title": "Props/scenery moving backstage",
+      "technique": "Observational lateral",
+      "instructions": "Keep distance; track a safe adult crew movement from beginning to end.",
+      "purpose": "Work nobody sees",
+      "opportunity": "Any rehearsal",
+      "people": "Adults",
+      "thread": "General",
+      "status": "Not shot",
+      "captured_at": null,
+      "camera": "",
+      "file_ref": "",
+      "notes": "",
+      "review_notes": "",
+      "version": 1
+    },
+    {
+      "id": "R12",
+      "category": "03 | Adult rehearsal coverage",
+      "priority": "Useful",
+      "title": "Rehearsal downtime",
+      "technique": "Wide locked-off",
+      "instructions": "Film adults waiting and quietly preparing between sections for 15–20 sec.",
+      "purpose": "Pacing / downtime",
+      "opportunity": "Any rehearsal",
+      "people": "Adults",
+      "thread": "General",
+      "status": "Not shot",
+      "captured_at": null,
+      "camera": "",
+      "file_ref": "",
+      "notes": "",
+      "review_notes": "",
+      "version": 1
+    },
+    {
+      "id": "R13",
+      "category": "03 | Adult rehearsal coverage",
+      "priority": "Must",
+      "title": "Post-rehearsal notes and dispersal",
+      "technique": "Static wide + ambient",
+      "instructions": "Hold frame as notes end, adults leave, and room clears.",
+      "purpose": "Scene endings and transitions",
+      "opportunity": "Rehearsal ending",
+      "people": "Adults",
+      "thread": "General",
+      "status": "Not shot",
+      "captured_at": null,
+      "camera": "",
+      "file_ref": "",
+      "notes": "",
+      "review_notes": "",
+      "version": 1
+    },
+    {
+      "id": "S01",
+      "category": "04 | Story-thread evidence",
+      "priority": "Must",
+      "title": "Bryan at work leading rehearsal",
+      "technique": "Observational medium",
+      "instructions": "Film Bryan giving a practical instruction or correction; get room context too.",
+      "purpose": "Authority and pressure",
+      "opportunity": "Any rehearsal",
+      "people": "Adults",
+      "thread": "Bryan vs Everybody",
+      "status": "Not shot",
+      "captured_at": null,
+      "camera": "",
+      "file_ref": "",
+      "notes": "",
+      "review_notes": "",
+      "version": 1
+    },
+    {
+      "id": "S02",
+      "category": "04 | Story-thread evidence",
+      "priority": "Useful",
+      "title": "Reaction after Bryan gives direction",
+      "technique": "Reaction close-up",
+      "instructions": "Capture an adult processing the instruction. Avoid staging a false reaction as fact.",
+      "purpose": "Conflicting confessionals punchline",
+      "opportunity": "Any rehearsal",
+      "people": "Adults",
+      "thread": "Bryan vs Everybody",
+      "status": "Not shot",
+      "captured_at": null,
+      "camera": "",
+      "file_ref": "",
+      "notes": "",
+      "review_notes": "",
+      "version": 1
+    },
+    {
+      "id": "S03",
+      "category": "04 | Story-thread evidence",
+      "priority": "Useful",
+      "title": "Confident claim vs. reality",
+      "technique": "Matched evidence shot",
+      "instructions": "After an interview claim, film the corresponding real rehearsal condition from a clear angle.",
+      "purpose": "Narrative contradiction",
+      "opportunity": "Any rehearsal",
+      "people": "Adults",
+      "thread": "Documentary Evidence",
+      "status": "Not shot",
+      "captured_at": null,
+      "camera": "",
+      "file_ref": "",
+      "notes": "Do not present manufactured footage as an actual unplanned event.",
+      "review_notes": "",
+      "version": 1
+    },
+    {
+      "id": "S04",
+      "category": "04 | Story-thread evidence",
+      "priority": "Must",
+      "title": "Four choir positions",
+      "technique": "Wide observational",
+      "instructions": "When rehearsal positions permit, capture the stage layout showing choir box locations.",
+      "purpose": "Four Boxes, One Choir",
+      "opportunity": "When choir rehearses",
+      "people": "Adults",
+      "thread": "Four Boxes One Choir",
+      "status": "Not shot",
+      "captured_at": null,
+      "camera": "",
+      "file_ref": "",
+      "notes": "Choir locations are stage-left/right, upper/lower; capture only when visible and permission allows.",
+      "review_notes": "",
+      "version": 1
+    },
+    {
+      "id": "S05",
+      "category": "04 | Story-thread evidence",
+      "priority": "Useful",
+      "title": "Choir area stage marks",
+      "technique": "Detail close-up",
+      "instructions": "Get tape, edges, or access points associated with the four choir boxes.",
+      "purpose": "Spatial explanation for choir thread",
+      "opportunity": "When choir rehearses",
+      "people": "None",
+      "thread": "Four Boxes One Choir",
+      "status": "Not shot",
+      "captured_at": null,
+      "camera": "",
+      "file_ref": "",
+      "notes": "",
+      "review_notes": "",
+      "version": 1
+    },
+    {
+      "id": "S06",
+      "category": "04 | Story-thread evidence",
+      "priority": "Useful",
+      "title": "Johanna reviewing script",
+      "technique": "Medium candid",
+      "instructions": "If Johanna participates and agrees, film her concentrating on notes or rehearsing.",
+      "purpose": "Understudy thread setup",
+      "opportunity": "Planned pickup",
+      "people": "Adult",
+      "thread": "Understudy Conspiracy",
+      "status": "Not shot",
+      "captured_at": null,
+      "camera": "",
+      "file_ref": "",
+      "notes": "Johanna is the understudy thread; Courtney is not. Do not imply a real conspiracy.",
+      "review_notes": "",
+      "version": 1
+    },
+    {
+      "id": "S07",
+      "category": "04 | Story-thread evidence",
+      "priority": "Optional",
+      "title": "Unattended script/understudy notes",
+      "technique": "Deadpan insert",
+      "instructions": "Film an approved script or notes without private content, emphasizing a page or role.",
+      "purpose": "Understudy thread cutaway",
+      "opportunity": "Planned pickup",
+      "people": "None",
+      "thread": "Understudy Conspiracy",
+      "status": "Not shot",
+      "captured_at": null,
+      "camera": "",
+      "file_ref": "",
+      "notes": "",
+      "review_notes": "",
+      "version": 1
+    },
+    {
+      "id": "S08",
+      "category": "04 | Story-thread evidence",
+      "priority": "Useful",
+      "title": "Empty place for the turkey",
+      "technique": "Locked-off reveal",
+      "instructions": "If there is a relevant prop/mark, film its empty location; otherwise save for future staged pickup.",
+      "purpose": "Missing Turkey story",
+      "opportunity": "Planned pickup",
+      "people": "None",
+      "thread": "Missing Turkey",
+      "status": "Not shot",
+      "captured_at": null,
+      "camera": "",
+      "file_ref": "",
+      "notes": "",
+      "review_notes": "",
+      "version": 1
+    },
+    {
+      "id": "S09",
+      "category": "04 | Story-thread evidence",
+      "priority": "Useful",
+      "title": "Eerily empty theater hallway",
+      "technique": "Static long take",
+      "instructions": "Film an approved vacant corridor with real room tone and no fabricated paranormal event.",
+      "purpose": "Colonial Ghost atmosphere",
+      "opportunity": "Space clear",
+      "people": "None",
+      "thread": "Colonial Ghost",
+      "status": "Not shot",
+      "captured_at": null,
+      "camera": "",
+      "file_ref": "",
+      "notes": "",
+      "review_notes": "",
+      "version": 1
+    },
+    {
+      "id": "S10",
+      "category": "04 | Story-thread evidence",
+      "priority": "Useful",
+      "title": "Stairwell/door for basement rumor",
+      "technique": "Slow reveal",
+      "instructions": "Show an authorized stairwell or basement-level door without trespassing or filming locks/codes.",
+      "purpose": "Secret Basement Club rumor",
+      "opportunity": "Planned pickup",
+      "people": "None",
+      "thread": "Secret Basement Club",
+      "status": "Not shot",
+      "captured_at": null,
+      "camera": "",
+      "file_ref": "",
+      "notes": "Do not reveal restricted access or sensitive security details.",
+      "review_notes": "",
+      "version": 1
+    },
+    {
+      "id": "S11",
+      "category": "04 | Story-thread evidence",
+      "priority": "Useful",
+      "title": "Old procedures / tradition objects",
+      "technique": "Close-up + wider context",
+      "instructions": "Capture posted rules, longstanding props, or familiar routines if actually present.",
+      "purpose": "Theatre Politics & Traditions",
+      "opportunity": "Any rehearsal",
+      "people": "None",
+      "thread": "Traditions",
+      "status": "Not shot",
+      "captured_at": null,
+      "camera": "",
+      "file_ref": "",
+      "notes": "",
+      "review_notes": "",
+      "version": 1
+    },
+    {
+      "id": "S12",
+      "category": "04 | Story-thread evidence",
+      "priority": "Must",
+      "title": "Someone fixes a real minor problem",
+      "technique": "Wide then detail",
+      "instructions": "Record real troubleshooting and result where safe; do not cause problems for footage.",
+      "purpose": "Show Must Go On",
+      "opportunity": "When it happens",
+      "people": "Adults",
+      "thread": "Show Must Go On",
+      "status": "Not shot",
+      "captured_at": null,
+      "camera": "",
+      "file_ref": "",
+      "notes": "",
+      "review_notes": "",
+      "version": 1
+    },
+    {
+      "id": "A01",
+      "category": "05 | Adult arrivals — DIFFERENT DAY",
+      "priority": "Must",
+      "title": "Empty stage door before arrivals",
+      "technique": "Locked wide",
+      "instructions": "Film the actual door and approach for 10 sec before people arrive. Keep public passersby out.",
+      "purpose": "Beginning of arrival sequence",
+      "opportunity": "Arrival pickup day",
+      "people": "None",
+      "thread": "Arrival sequence",
+      "status": "Not shot",
+      "captured_at": null,
+      "camera": "",
+      "file_ref": "",
+      "notes": "NOT TODAY: requires filming before the scheduled rehearsal.",
+      "review_notes": "",
+      "version": 1
+    },
+    {
+      "id": "A02",
+      "category": "05 | Adult arrivals — DIFFERENT DAY",
+      "priority": "Must",
+      "title": "Adults approaching stage door",
+      "technique": "Long/medium observational",
+      "instructions": "From a permitted position, capture adult cast/crew walking up naturally with bags.",
+      "purpose": "Opening sequence — arriving",
+      "opportunity": "Arrival pickup day",
+      "people": "Adults",
+      "thread": "Arrival sequence",
+      "status": "Not shot",
+      "captured_at": null,
+      "camera": "",
+      "file_ref": "",
+      "notes": "Obtain permission; avoid filming children and unsuspecting bystanders.",
+      "review_notes": "",
+      "version": 1
+    },
+    {
+      "id": "A03",
+      "category": "05 | Adult arrivals — DIFFERENT DAY",
+      "priority": "Useful",
+      "title": "Shoes/bags walking toward door",
+      "technique": "Low detail tracking",
+      "instructions": "Stay to side; capture adult shoes and bags approaching without blocking access.",
+      "purpose": "Arrival montage",
+      "opportunity": "Arrival pickup day",
+      "people": "Adult details",
+      "thread": "Arrival sequence",
+      "status": "Not shot",
+      "captured_at": null,
+      "camera": "",
+      "file_ref": "",
+      "notes": "",
+      "review_notes": "",
+      "version": 1
+    },
+    {
+      "id": "A04",
+      "category": "05 | Adult arrivals — DIFFERENT DAY",
+      "priority": "Must",
+      "title": "Hand opens stage door",
+      "technique": "Tight insert",
+      "instructions": "Frame an adult hand on handle, opening door and pulling it shut naturally.",
+      "purpose": "Edit bridge exterior → interior",
+      "opportunity": "Arrival pickup day",
+      "people": "Adult hand",
+      "thread": "Arrival sequence",
+      "status": "Not shot",
+      "captured_at": null,
+      "camera": "",
+      "file_ref": "",
+      "notes": "",
+      "review_notes": "",
+      "version": 1
+    },
+    {
+      "id": "A05",
+      "category": "05 | Adult arrivals — DIFFERENT DAY",
+      "priority": "Must",
+      "title": "Adults crossing doorway",
+      "technique": "Interior locked medium",
+      "instructions": "From safe inside position, film arrival through doorway; record natural sound.",
+      "purpose": "Entering backstage world",
+      "opportunity": "Arrival pickup day",
+      "people": "Adults",
+      "thread": "Arrival sequence",
+      "status": "Not shot",
+      "captured_at": null,
+      "camera": "",
+      "file_ref": "",
+      "notes": "",
+      "review_notes": "",
+      "version": 1
+    },
+    {
+      "id": "A06",
+      "category": "05 | Adult arrivals — DIFFERENT DAY",
+      "priority": "Useful",
+      "title": "Adult walks down backstage hall",
+      "technique": "Rear tracking",
+      "instructions": "Follow from behind at a respectful distance, horizontal and steady.",
+      "purpose": "Follow the character into rehearsal",
+      "opportunity": "Arrival pickup day",
+      "people": "Adults",
+      "thread": "Arrival sequence",
+      "status": "Not shot",
+      "captured_at": null,
+      "camera": "",
+      "file_ref": "",
+      "notes": "",
+      "review_notes": "",
+      "version": 1
+    },
+    {
+      "id": "A07",
+      "category": "05 | Adult arrivals — DIFFERENT DAY",
+      "priority": "Useful",
+      "title": "Coat/bag placed down",
+      "technique": "Close-up",
+      "instructions": "Capture bag landing on chair/table, then hands opening script. Avoid private belongings.",
+      "purpose": "Beginning-of-work insert",
+      "opportunity": "Arrival pickup day",
+      "people": "Adult details",
+      "thread": "Arrival sequence",
+      "status": "Not shot",
+      "captured_at": null,
+      "camera": "",
+      "file_ref": "",
+      "notes": "",
+      "review_notes": "",
+      "version": 1
+    },
+    {
+      "id": "A08",
+      "category": "05 | Adult arrivals — DIFFERENT DAY",
+      "priority": "Useful",
+      "title": "Adults greet one another",
+      "technique": "Observational medium",
+      "instructions": "Film genuine greeting from approved position without prompting anyone.",
+      "purpose": "Cast ensemble introduction",
+      "opportunity": "Arrival pickup day",
+      "people": "Adults",
+      "thread": "Arrival sequence",
+      "status": "Not shot",
+      "captured_at": null,
+      "camera": "",
+      "file_ref": "",
+      "notes": "",
+      "review_notes": "",
+      "version": 1
+    },
+    {
+      "id": "A09",
+      "category": "05 | Adult arrivals — DIFFERENT DAY",
+      "priority": "Useful",
+      "title": "Last arrival / door closes",
+      "technique": "Static medium hold",
+      "instructions": "Frame door as final adult enters, then hold on the now-quiet door for 5 seconds.",
+      "purpose": "Comedic or temporal cut",
+      "opportunity": "Arrival pickup day",
+      "people": "Adults",
+      "thread": "Arrival sequence",
+      "status": "Not shot",
+      "captured_at": null,
+      "camera": "",
+      "file_ref": "",
+      "notes": "",
+      "review_notes": "",
+      "version": 1
+    },
+    {
+      "id": "B01",
+      "category": "06 | Set build / Jim S — LATER",
+      "priority": "Must",
+      "title": "Set area before build",
+      "technique": "Repeatable locked wide",
+      "instructions": "Mark a safe tripod/phone position and film same framing on each construction visit.",
+      "purpose": "Visible set progress",
+      "opportunity": "Construction day",
+      "people": "None",
+      "thread": "The Legend of Jim S",
+      "status": "Not shot",
+      "captured_at": null,
+      "camera": "",
+      "file_ref": "",
+      "notes": "",
+      "review_notes": "",
+      "version": 1
+    },
+    {
+      "id": "B02",
+      "category": "06 | Set build / Jim S — LATER",
+      "priority": "Must",
+      "title": "Bryan leads set work",
+      "technique": "Stable medium + natural audio",
+      "instructions": "Observe Bryan explaining or checking real construction; do not disrupt instructions.",
+      "purpose": "Bryan leads technical work",
+      "opportunity": "Construction day",
+      "people": "Adults",
+      "thread": "The Legend of Jim S",
+      "status": "Not shot",
+      "captured_at": null,
+      "camera": "",
+      "file_ref": "",
+      "notes": "",
+      "review_notes": "",
+      "version": 1
+    },
+    {
+      "id": "B03",
+      "category": "06 | Set build / Jim S — LATER",
+      "priority": "Must",
+      "title": "Glen measuring/building",
+      "technique": "Side medium + hands close-up",
+      "instructions": "Film Glen working and a separate detail of hands/tools; stay out of work zone.",
+      "purpose": "Glen actually doing the work",
+      "opportunity": "Construction day",
+      "people": "Adults",
+      "thread": "The Legend of Jim S",
+      "status": "Not shot",
+      "captured_at": null,
+      "camera": "",
+      "file_ref": "",
+      "notes": "",
+      "review_notes": "",
+      "version": 1
+    },
+    {
+      "id": "B04",
+      "category": "06 | Set build / Jim S — LATER",
+      "priority": "Useful",
+      "title": "Glen hears mention of Jim S",
+      "technique": "Planned reaction pickup",
+      "instructions": "After discussion with Glen, capture his reaction to someone referring to Jim S.",
+      "purpose": "Recurring WWJD misunderstanding",
+      "opportunity": "Construction day",
+      "people": "Adults",
+      "thread": "The Legend of Jim S",
+      "status": "Not shot",
+      "captured_at": null,
+      "camera": "",
+      "file_ref": "",
+      "notes": "Story is about Jim S, former set builder; not Jim G, who plays Scrooge.",
+      "review_notes": "",
+      "version": 1
+    },
+    {
+      "id": "B05",
+      "category": "06 | Set build / Jim S — LATER",
+      "priority": "Useful",
+      "title": "WWJD / Jim S reference insert",
+      "technique": "Static detail or push-in",
+      "instructions": "If an approved WWJD note/sign is used, film a readable tight insert.",
+      "purpose": "Recurring visual joke",
+      "opportunity": "Construction day",
+      "people": "None",
+      "thread": "The Legend of Jim S",
+      "status": "Not shot",
+      "captured_at": null,
+      "camera": "",
+      "file_ref": "",
+      "notes": "Create or place signage only as an agreed fictional pickup, not a purported real note.",
+      "review_notes": "",
+      "version": 1
+    },
+    {
+      "id": "B06",
+      "category": "06 | Set build / Jim S — LATER",
+      "priority": "Must",
+      "title": "Tools and safe work details",
+      "technique": "Close-up / lateral slide",
+      "instructions": "Measure, mark, paint and assemble from a safe location; no moving machinery close-ups.",
+      "purpose": "Technical realism and transitions",
+      "opportunity": "Construction day",
+      "people": "Adult details",
+      "thread": "The Legend of Jim S",
+      "status": "Not shot",
+      "captured_at": null,
+      "camera": "",
+      "file_ref": "",
+      "notes": "",
+      "review_notes": "",
+      "version": 1
+    },
+    {
+      "id": "B07",
+      "category": "06 | Set build / Jim S — LATER",
+      "priority": "Must",
+      "title": "Set after build (matched angle)",
+      "technique": "Repeatable locked wide",
+      "instructions": "Use exactly same position and lens as B01 to show progress after work.",
+      "purpose": "Before/after edit",
+      "opportunity": "Construction day",
+      "people": "None",
+      "thread": "The Legend of Jim S",
+      "status": "Not shot",
+      "captured_at": null,
+      "camera": "",
+      "file_ref": "",
+      "notes": "",
+      "review_notes": "",
+      "version": 1
+    },
+    {
+      "id": "B08",
+      "category": "06 | Set build / Jim S — LATER",
+      "priority": "Useful",
+      "title": "Unresolved set detail",
+      "technique": "Deadpan static close-up",
+      "instructions": "Film unfinished safe detail or empty area as though it matters tremendously.",
+      "purpose": "Mockumentary setup/punchline",
+      "opportunity": "Construction day",
+      "people": "None",
+      "thread": "The Legend of Jim S",
+      "status": "Not shot",
+      "captured_at": null,
+      "camera": "",
+      "file_ref": "",
+      "notes": "",
+      "review_notes": "",
+      "version": 1
+    },
+    {
+      "id": "T01",
+      "category": "07 | Tech, performance & closing",
+      "priority": "Must",
+      "title": "Tech rehearsal stage state",
+      "technique": "Locked wide",
+      "instructions": "Capture stage from consistent angle at start of tech week; include sets and lighting.",
+      "purpose": "Progress from rehearsal to show",
+      "opportunity": "Tech week",
+      "people": "None",
+      "thread": "Show Must Go On",
+      "status": "Not shot",
+      "captured_at": null,
+      "camera": "",
+      "file_ref": "",
+      "notes": "",
+      "review_notes": "",
+      "version": 1
+    },
+    {
+      "id": "T02",
+      "category": "07 | Tech, performance & closing",
+      "priority": "Useful",
+      "title": "Lighting cue / stage change",
+      "technique": "Static wide",
+      "instructions": "With permission, record light transitions from the same frame.",
+      "purpose": "Technical transition",
+      "opportunity": "Tech week",
+      "people": "None",
+      "thread": "Show Must Go On",
+      "status": "Not shot",
+      "captured_at": null,
+      "camera": "",
+      "file_ref": "",
+      "notes": "",
+      "review_notes": "",
+      "version": 1
+    },
+    {
+      "id": "T03",
+      "category": "07 | Tech, performance & closing",
+      "priority": "Useful",
+      "title": "Crew cue station",
+      "technique": "Detail close-up",
+      "instructions": "Film show paperwork or cue light only with production permission; omit sensitive details.",
+      "purpose": "Backstage preparation",
+      "opportunity": "Tech week",
+      "people": "Adults",
+      "thread": "Show Must Go On",
+      "status": "Not shot",
+      "captured_at": null,
+      "camera": "",
+      "file_ref": "",
+      "notes": "",
+      "review_notes": "",
+      "version": 1
+    },
+    {
+      "id": "T04",
+      "category": "07 | Tech, performance & closing",
+      "priority": "Useful",
+      "title": "Finished costume/prop ready",
+      "technique": "Locked close-up",
+      "instructions": "Film organized final costume or prop before it is used.",
+      "purpose": "Rehearsal-to-performance contrast",
+      "opportunity": "Tech week",
+      "people": "None",
+      "thread": "General",
+      "status": "Not shot",
+      "captured_at": null,
+      "camera": "",
+      "file_ref": "",
+      "notes": "",
+      "review_notes": "",
+      "version": 1
+    },
+    {
+      "id": "T05",
+      "category": "07 | Tech, performance & closing",
+      "priority": "Useful",
+      "title": "Adults preparing in wings",
+      "technique": "Observational medium",
+      "instructions": "Capture allowed adult backstage preparations without showing children or crowding paths.",
+      "purpose": "Pre-show tension",
+      "opportunity": "Tech week",
+      "people": "Adults",
+      "thread": "Show Must Go On",
+      "status": "Not shot",
+      "captured_at": null,
+      "camera": "",
+      "file_ref": "",
+      "notes": "",
+      "review_notes": "",
+      "version": 1
+    },
+    {
+      "id": "T06",
+      "category": "07 | Tech, performance & closing",
+      "priority": "Must",
+      "title": "Empty stage after rehearsal",
+      "technique": "Locked wide / long hold",
+      "instructions": "When venue is clear, frame stage and let room tone run 15 sec.",
+      "purpose": "Episode ending",
+      "opportunity": "Rehearsal ending",
+      "people": "None",
+      "thread": "General",
+      "status": "Not shot",
+      "captured_at": null,
+      "camera": "",
+      "file_ref": "",
+      "notes": "",
+      "review_notes": "",
+      "version": 1
+    },
+    {
+      "id": "T07",
+      "category": "07 | Tech, performance & closing",
+      "priority": "Useful",
+      "title": "Stage door closed at night",
+      "technique": "Static exterior medium",
+      "instructions": "From allowed exterior area, hold shot of door after rehearsal concludes.",
+      "purpose": "Full-circle visual ending",
+      "opportunity": "Rehearsal ending",
+      "people": "None",
+      "thread": "General",
+      "status": "Not shot",
+      "captured_at": null,
+      "camera": "",
+      "file_ref": "",
+      "notes": "",
+      "review_notes": "",
+      "version": 1
+    }
+  ],
+  "beats": [
+    {
+      "id": "BC001",
+      "thread": "Series opening",
+      "beat": "Setup",
+      "evidence": "Colonial exterior -> stage door -> backstage environment; no cast needed first",
+      "opportunity": "Any Colonial rehearsal",
+      "shot_ids": "E01 E04 E05 E09",
+      "approach": "Use static exterior and continuous visual geography to establish public vs backstage.",
+      "priority": "Must",
+      "status": "Not planned",
+      "notes": "",
+      "version": 1
+    },
+    {
+      "id": "BC002",
+      "thread": "Series opening",
+      "beat": "Daily life",
+      "evidence": "Adults arriving, entering, greeting and getting set up",
+      "opportunity": "Dedicated before-call pickup",
+      "shot_ids": "A01-A09",
+      "approach": "Real adult arrivals, unobtrusive; keep it as its own day.",
+      "priority": "Must",
+      "status": "Not planned",
+      "notes": "",
+      "version": 1
+    },
+    {
+      "id": "BC003",
+      "thread": "Bryan vs Everybody",
+      "beat": "Setup",
+      "evidence": "Bryan describing how he runs rehearsal, contrasted with actual instruction",
+      "opportunity": "Nov 9 or another adult rehearsal",
+      "shot_ids": "R02 S01",
+      "approach": "Interview outside call; candid documentary clip during rehearsal.",
+      "priority": "Must",
+      "status": "Not planned",
+      "notes": "",
+      "version": 1
+    },
+    {
+      "id": "BC004",
+      "thread": "Bryan vs Everybody",
+      "beat": "Escalation",
+      "evidence": "A genuine instruction, pause, correction or person interpreting it differently",
+      "opportunity": "Nov 15-18",
+      "shot_ids": "S02 R03 R04",
+      "approach": "Do not solicit mistakes or exaggerate genuine performer embarrassment.",
+      "priority": "Must",
+      "status": "Not planned",
+      "notes": "",
+      "version": 1
+    },
+    {
+      "id": "BC005",
+      "thread": "Bryan vs Everybody",
+      "beat": "Payoff / growth",
+      "evidence": "Compare early chaotic notes with confident final staging",
+      "opportunity": "Dec 8-9 dress",
+      "shot_ids": "R13 T01",
+      "approach": "Use visually matched staging; optional post-dress interview.",
+      "priority": "Useful",
+      "status": "Not planned",
+      "notes": "",
+      "version": 1
+    },
+    {
+      "id": "BC006",
+      "thread": "Four Boxes One Choir",
+      "beat": "Setup",
+      "evidence": "Wide that clearly reveals the positions/boxes used by choir",
+      "opportunity": "Next choir call; Nov 15 early choir block if accessible",
+      "shot_ids": "S04 S05",
+      "approach": "Only if the positions are actually used; stay in approved position.",
+      "priority": "Must",
+      "status": "Not planned",
+      "notes": "",
+      "version": 1
+    },
+    {
+      "id": "BC007",
+      "thread": "Four Boxes One Choir",
+      "beat": "Escalation",
+      "evidence": "Repeat of positioning or discussion about keeping people organized",
+      "opportunity": "Next suitable choir rehearsal",
+      "shot_ids": "S04 S05 R04",
+      "approach": "Obtain brief adult comment after rehearsal; do not redirect choreography.",
+      "priority": "Useful",
+      "status": "Not planned",
+      "notes": "",
+      "version": 1
+    },
+    {
+      "id": "BC008",
+      "thread": "Four Boxes One Choir",
+      "beat": "Payoff",
+      "evidence": "Repeat same wide after arrangement settles",
+      "opportunity": "Later choir/dress call",
+      "shot_ids": "S04 T01",
+      "approach": "A matched framing makes the edit legible.",
+      "priority": "Useful",
+      "status": "Not planned",
+      "notes": "",
+      "version": 1
+    },
+    {
+      "id": "BC009",
+      "thread": "Understudy Conspiracy",
+      "beat": "Setup",
+      "evidence": "Johanna with script / rehearsal preparation (not Courtney)",
+      "opportunity": "Pre/post when Johanna is present",
+      "shot_ids": "S06 S07",
+      "approach": "Planned pickup with consent; do not interrupt her current work.",
+      "priority": "Useful",
+      "status": "Not planned",
+      "notes": "",
+      "version": 1
+    },
+    {
+      "id": "BC010",
+      "thread": "Understudy Conspiracy",
+      "beat": "Escalation",
+      "evidence": "Ambiguous reaction or detail that can carry a playful conspiracy gag",
+      "opportunity": "Only if separately agreed",
+      "shot_ids": "S06 S07",
+      "approach": "Mockumentary inserts can be staged outside rehearsal.",
+      "priority": "Optional",
+      "status": "Not planned",
+      "notes": "",
+      "version": 1
+    },
+    {
+      "id": "BC011",
+      "thread": "Missing Turkey",
+      "beat": "Setup - NOT YET IN 76",
+      "evidence": "Turkey visibly in normal prop location BEFORE disappearance",
+      "opportunity": "First safe prop-table access",
+      "shot_ids": "D05 D06",
+      "approach": "Get prop-owner approval; close-up and wide matched shot; never move prop.",
+      "priority": "Must",
+      "status": "Not planned",
+      "notes": "Needs a new pickup shot not covered by S08.",
+      "version": 1
+    },
+    {
+      "id": "BC012",
+      "thread": "Missing Turkey",
+      "beat": "Disappearance",
+      "evidence": "Same camera angle, empty location",
+      "opportunity": "Planned prop pickup after setup",
+      "shot_ids": "S08",
+      "approach": "Stage a fiction-only empty-location insert with prop lead approval.",
+      "priority": "Must",
+      "status": "Not planned",
+      "notes": "Do not remove a functional show prop.",
+      "version": 1
+    },
+    {
+      "id": "BC013",
+      "thread": "Missing Turkey",
+      "beat": "Investigation",
+      "evidence": "Adult actor inquiry/reaction; cluttered prop table",
+      "opportunity": "Adult downtime or pickups",
+      "shot_ids": "D05 D11",
+      "approach": "Voluntary interview or staged comic insert outside call.",
+      "priority": "Useful",
+      "status": "Not planned",
+      "notes": "",
+      "version": 1
+    },
+    {
+      "id": "BC014",
+      "thread": "Missing Turkey",
+      "beat": "Payoff - NOT YET IN 76",
+      "evidence": "Turkey reappears / reveal; same framing used in setup",
+      "opportunity": "Later planned pickup",
+      "shot_ids": "D05 D06",
+      "approach": "Film reveal separately after prop lead clearance.",
+      "priority": "Useful",
+      "status": "Not planned",
+      "notes": "",
+      "version": 1
+    },
+    {
+      "id": "BC015",
+      "thread": "Colonial Ghost",
+      "beat": "Atmosphere",
+      "evidence": "Empty hallway, dressing room, theater and ominous door",
+      "opportunity": "Any empty-venue period at Colonial",
+      "shot_ids": "S09 E09 E11",
+      "approach": "No additional lighting or noise during rehearsal.",
+      "priority": "Useful",
+      "status": "Not planned",
+      "notes": "",
+      "version": 1
+    },
+    {
+      "id": "BC016",
+      "thread": "Colonial Ghost",
+      "beat": "Interview / payoff",
+      "evidence": "Optional adult telling ghost story, with deliberate mismatch to normal space",
+      "opportunity": "Pre/post voluntary pickup",
+      "shot_ids": "S09",
+      "approach": "Keep clearly in mockumentary register; not factual evidence.",
+      "priority": "Optional",
+      "status": "Not planned",
+      "notes": "",
+      "version": 1
+    },
+    {
+      "id": "BC017",
+      "thread": "Secret Basement Club",
+      "beat": "Setup",
+      "evidence": "Door or stairwell only if safe and permitted",
+      "opportunity": "Planned venue pickup",
+      "shot_ids": "S10",
+      "approach": "No unauthorized access or depiction of restricted areas.",
+      "priority": "Optional",
+      "status": "Not planned",
+      "notes": "",
+      "version": 1
+    },
+    {
+      "id": "BC018",
+      "thread": "The Legend of Jim S",
+      "beat": "Baseline",
+      "evidence": "Unfinished workspace BEFORE the build",
+      "opportunity": "First confirmed construction session",
+      "shot_ids": "B01 D16",
+      "approach": "Shoot a fixed wide that can be recreated after the build.",
+      "priority": "Must",
+      "status": "Not planned",
+      "notes": "",
+      "version": 1
+    },
+    {
+      "id": "BC019",
+      "thread": "The Legend of Jim S",
+      "beat": "Who actually works",
+      "evidence": "Bryan directing construction and Glen physically building",
+      "opportunity": "Confirmed construction session",
+      "shot_ids": "B02 B03 B06",
+      "approach": "Stay clear of power tools, lifting and rigging; ask for position approval.",
+      "priority": "Must",
+      "status": "Not planned",
+      "notes": "",
+      "version": 1
+    },
+    {
+      "id": "BC020",
+      "thread": "The Legend of Jim S",
+      "beat": "Running joke",
+      "evidence": "Glen hears another mention of Jim S and reacts",
+      "opportunity": "Construction session or short planned pickup",
+      "shot_ids": "B04 B05",
+      "approach": "Prefer natural moment; if staged, do it on a break. Jim G is a different person.",
+      "priority": "Must",
+      "status": "Not planned",
+      "notes": "",
+      "version": 1
+    },
+    {
+      "id": "BC021",
+      "thread": "The Legend of Jim S",
+      "beat": "Payoff",
+      "evidence": "Finished set matched to early view; possible Jim S response",
+      "opportunity": "After build / Dec 8-9",
+      "shot_ids": "B07",
+      "approach": "Call or interview with Jim S only if separately arranged.",
+      "priority": "Useful",
+      "status": "Not planned",
+      "notes": "",
+      "version": 1
+    },
+    {
+      "id": "BC022",
+      "thread": "Show Must Go On",
+      "beat": "Early baseline",
+      "evidence": "Full-show stumble-through and first serious notes",
+      "opportunity": "Nov 15",
+      "shot_ids": "R01 R04 R13",
+      "approach": "Record a few authentic chunks, not the entire run.",
+      "priority": "Must",
+      "status": "Not planned",
+      "notes": "",
+      "version": 1
+    },
+    {
+      "id": "BC023",
+      "thread": "Show Must Go On",
+      "beat": "Middle change",
+      "evidence": "Matched portions of Act I and II and corrections",
+      "opportunity": "Nov 16, Nov 18, Nov 30-Dec 2",
+      "shot_ids": "R01 R04 S12",
+      "approach": "Repeat angle/location where possible; track which scene is which.",
+      "priority": "Must",
+      "status": "Not planned",
+      "notes": "",
+      "version": 1
+    },
+    {
+      "id": "BC024",
+      "thread": "Show Must Go On",
+      "beat": "Technical pressure",
+      "evidence": "Load-in, crew solutions, lighting/costume adjustments",
+      "opportunity": "Dec 7-9",
+      "shot_ids": "T01 T02 T03 T04",
+      "approach": "Do not disrupt technical cueing or backstage safety.",
+      "priority": "Must",
+      "status": "Not planned",
+      "notes": "",
+      "version": 1
+    },
+    {
+      "id": "BC025",
+      "thread": "Show Must Go On",
+      "beat": "Payoff",
+      "evidence": "Finished theater stage and visible prep for first audience",
+      "opportunity": "Dec 8-10",
+      "shot_ids": "T01 T04 T05 T06",
+      "approach": "Stage show outcome is not guaranteed; let the actual outcome shape the edit.",
+      "priority": "Must",
+      "status": "Not planned",
+      "notes": "",
+      "version": 1
+    },
+    {
+      "id": "BC026",
+      "thread": "Series ending",
+      "beat": "Closure",
+      "evidence": "Stage door/night exterior; theater empty; optional last adult reaction",
+      "opportunity": "Dec 10-13",
+      "shot_ids": "T06 T07",
+      "approach": "Obtain after-hours access before planning this shot.",
+      "priority": "Useful",
+      "status": "Not planned",
+      "notes": "",
+      "version": 1
+    }
+  ],
+  "sessions": [
+    {
+      "id": "2026-11-08",
+      "date": "2026-11-08",
+      "venue": "COLONIAL | 3:30-6:00 pm",
+      "goal": "Set the world; capture baseline",
+      "capture": "Exterior + stage door; finale remainder; prop/script inserts; adult backstage activity",
+      "shot_ids": "E01 E04 D01 D02 D05 R01 R13",
+      "approach": "3:30-4 finale from fixed quiet seat; later shoot only between activities; avoid child-focused coverage",
+      "pickup": "No interviews needed. Get empty theater on departure if available.",
+      "status": "Planned",
+      "notes": "Arrival is 3:30; Glen is not there yet.",
+      "version": 1
+    },
+    {
+      "id": "2026-11-09",
+      "date": "2026-11-09",
+      "venue": "COLONIAL | 6-9 pm",
+      "goal": "Establish Bryan and adult character dynamics",
+      "capture": "Bryan giving direction; receiving notes; stage reset; reactions after a stop",
+      "shot_ids": "R02 R03 R04 S01 S02",
+      "approach": "Stay at one approved audience position during blocking; do not ask for repeats",
+      "pickup": "At most 1 voluntary 2-3-minute Bryan interview outside call time.",
+      "status": "Not planned",
+      "notes": "Louie/Cat/Jim and later Topper/Mrs T are scheduled; verify exact adult access.",
+      "version": 1
+    },
+    {
+      "id": "2026-11-11",
+      "date": "2026-11-11",
+      "venue": "CHURCH | 6-9 pm",
+      "goal": "Capture choreography and movement",
+      "capture": "Wide choreography geography; reset after instructions; adult detail and sound",
+      "shot_ids": "R01 R04 R09 D02 S03",
+      "approach": "Film from room edge; do not cross movement patterns or distract performers",
+      "pickup": "Get church exterior/room establishing clips before rehearsal if clear.",
+      "status": "Not planned",
+      "notes": "Snowball fight, Spirit/Winter Night, Fezziwig Ball on schedule. Avoid child-focused shots.",
+      "version": 1
+    },
+    {
+      "id": "2026-11-15",
+      "date": "2026-11-15",
+      "venue": "COLONIAL | 1-6 pm",
+      "goal": "Document the FIRST WHOLE-SHOW baseline",
+      "capture": "Stumble-through master; stopping/resetting; notes; choir positioning if available",
+      "shot_ids": "R01 R04 R13 S03 S04 S05",
+      "approach": "At 2:15-5 stay in one seat; record a few 30-60-second sequences; no cross-stage movement",
+      "pickup": "Possible arrivals pickup BEFORE call only if separately agreed; not part of rehearsal.",
+      "status": "Not planned",
+      "notes": "Schedule: 1-2:15 dialogue, 2:15-5 stumble-through, 5-6 notes. High-priority day.",
+      "version": 1
+    },
+    {
+      "id": "2026-11-16",
+      "date": "2026-11-16",
+      "venue": "COLONIAL | 6-9 pm",
+      "goal": "Observe ACT II progress",
+      "capture": "Beginning of act; director corrections; same moment after adjustment",
+      "shot_ids": "R01 R02 R03 R04 R07",
+      "approach": "Fixed camera during 6:15-8 run; get notes from stationary position 8-9",
+      "pickup": "Quick 2-minute interview after notes only with volunteers.",
+      "status": "Not planned",
+      "notes": "Act II run; make notes of specific moments to match in tech week.",
+      "version": 1
+    },
+    {
+      "id": "2026-11-18",
+      "date": "2026-11-18",
+      "venue": "COLONIAL | 6-9 pm",
+      "goal": "Observe ACT I progress",
+      "capture": "Act I master; notes and reactions; details of fixes",
+      "shot_ids": "R01 R02 R03 R04 S12",
+      "approach": "Fixed camera during 6:15-8 run; do not interrupt staging",
+      "pickup": "Short audience-free pickup of objects only after the stage is clear.",
+      "status": "Not planned",
+      "notes": "Act I run, then notes/cleanup; track recurring issues to revisit later.",
+      "version": 1
+    },
+    {
+      "id": "2026-11-22",
+      "date": "2026-11-22",
+      "venue": "BELKNAP MILL | 3-6 pm",
+      "goal": "Add a different rehearsal setting",
+      "capture": "Location establishing; adult rehearsal activity only if appropriate",
+      "shot_ids": "D01 R05 R06 R12",
+      "approach": "Schedule does not specify blocking; do not assume the format or access",
+      "pickup": "One or two story interviews pre/post only if cleared.",
+      "status": "Not planned",
+      "notes": "Third-floor venue; confirm filming access; details not in source schedule.",
+      "version": 1
+    },
+    {
+      "id": "2026-11-23",
+      "date": "2026-11-23",
+      "venue": "COLONIAL | 6-9 pm",
+      "goal": "FAD coverage; first storyline gap check",
+      "capture": "Adult musical practice; backstage preparation; missing character inserts",
+      "shot_ids": "R01 R05 R08 R09 S03",
+      "approach": "Do not treat an adult song run as an interview opportunity",
+      "pickup": "Pick up one short question about production progress after rehearsal.",
+      "status": "Not planned",
+      "notes": "FAD run as much as possible; actual sequence may change.",
+      "version": 1
+    },
+    {
+      "id": "2026-11-29",
+      "date": "2026-11-29",
+      "venue": "CHURCH | 1-6 pm",
+      "goal": "Fill story gaps strategically",
+      "capture": "Choir when available; Johanna only if attending; script and props",
+      "shot_ids": "D02 D05 R05 S04 S06",
+      "approach": "Get only shots that match actual available participants; no interruption",
+      "pickup": "Reserve 10 min of voluntary interviews before/after if approved.",
+      "status": "Not planned",
+      "notes": "Detailed rehearsal blocks not specified; verify scene availability.",
+      "version": 1
+    },
+    {
+      "id": "2026-11-30",
+      "date": "2026-11-30",
+      "venue": "COLONIAL | 6-9 pm",
+      "goal": "Capture how rehearsal has changed",
+      "capture": "Repeat comparable wide and medium frames; adult FAD practice",
+      "shot_ids": "R01 R04 R09 S03",
+      "approach": "Revisit same unobtrusive camera angles from earlier footage",
+      "pickup": "Use pickups to close confirmed story gaps, not to invent live mishaps.",
+      "status": "Not planned",
+      "notes": "FAD: run the rest; remaining schedule is fluid.",
+      "version": 1
+    },
+    {
+      "id": "2026-12-02",
+      "date": "2026-12-02",
+      "venue": "COLONIAL | 6-9 pm",
+      "goal": "Last Colonial pre-tech comparison",
+      "capture": "New versions of previous rehearsal issues; stage prep",
+      "shot_ids": "R01 R13 S12 D13",
+      "approach": "A few matched shots, minimal wandering",
+      "pickup": "Optional 1-2-minute cast reflections after rehearsal.",
+      "status": "Not planned",
+      "notes": "FAD run; use as pickup reserve.",
+      "version": 1
+    },
+    {
+      "id": "2026-12-06",
+      "date": "2026-12-06",
+      "venue": "CHURCH | 1-6 pm",
+      "goal": "Record anticipation before tech week",
+      "capture": "Preparations, scripts, final changes and reactions",
+      "shot_ids": "D01 D02 R12 R13",
+      "approach": "Do not add pressure to final rehearsal; quick observational captures only",
+      "pickup": "One voluntary question: What still needs to happen before opening?",
+      "status": "Not planned",
+      "notes": "FAD run is listed; avoid presenting this as the completed show.",
+      "version": 1
+    },
+    {
+      "id": "2026-12-07",
+      "date": "2026-12-07",
+      "venue": "LOAD-IN / TECH | hours TBD",
+      "goal": "Reveal set transformation and actual crew work",
+      "capture": "Pre-build state; Bryan and Glen if present; tools; technical solutions",
+      "shot_ids": "B01 B02 B03 B04 B06 B08 T01",
+      "approach": "Crew lead and stage manager approve positions; no roaming near rigging/tools",
+      "pickup": "If Jim S joke arises naturally, capture reactions between tasks; no prompting during work.",
+      "status": "Not planned",
+      "notes": "Construction timing/Glen attendance NOT confirmed by schedule; obtain actual build call.",
+      "version": 1
+    },
+    {
+      "id": "2026-12-08",
+      "date": "2026-12-08",
+      "venue": "DRESS | hours TBD",
+      "goal": "Show the visual payoff",
+      "capture": "Finished set; costume and light details; matched angle of earlier wide",
+      "shot_ids": "B07 T01 T02 T03 T04 T05",
+      "approach": "Request a rear auditorium position; do not cross backstage routes",
+      "pickup": "Short interviews only if production approves and performers have time.",
+      "status": "Not planned",
+      "notes": "Permission to record dress rehearsal and musical material must be confirmed.",
+      "version": 1
+    },
+    {
+      "id": "2026-12-09",
+      "date": "2026-12-09",
+      "venue": "DRESS | hours TBD",
+      "goal": "Capture final readiness",
+      "capture": "Last changes; quiet before show; final stage wide",
+      "shot_ids": "T01 T04 T05 T06",
+      "approach": "Stay out of cueing and quick-change paths; no added requests",
+      "pickup": "One closing thought from director / adult volunteer post-rehearsal.",
+      "status": "Not planned",
+      "notes": "Prioritize show readiness over documentary footage.",
+      "version": 1
+    },
+    {
+      "id": "2026-12-10",
+      "date": "2026-12-10",
+      "venue": "OPENING | 7:30 pm",
+      "goal": "Opening-night transition",
+      "capture": "Marquee; stage door; approved preshow objects; empty theater after",
+      "shot_ids": "E01 E02 E04 T07",
+      "approach": "No audience or performance filming without explicit clearance",
+      "pickup": "Brief post-show reaction only from people who opt in.",
+      "status": "Not planned",
+      "notes": "Show day, not a filmmaking rehearsal.",
+      "version": 1
+    },
+    {
+      "id": "2026-12-11",
+      "date": "2026-12-11",
+      "venue": "PERFORMANCE | 7:30 pm",
+      "goal": "Reserve pickup if needed",
+      "capture": "Exterior and atmosphere only",
+      "shot_ids": "E01 T07",
+      "approach": "No disruption; no unnecessary new filming",
+      "pickup": "None unless previously arranged.",
+      "status": "Not planned",
+      "notes": "Optional coverage day.",
+      "version": 1
+    },
+    {
+      "id": "2026-12-12",
+      "date": "2026-12-12",
+      "venue": "MATINEE 2 pm + FAD evening",
+      "goal": "Capture show-day contrast",
+      "capture": "Approved external signs, atmospheric clips",
+      "shot_ids": "E02 T07",
+      "approach": "No filming during performance without express permission",
+      "pickup": "Optional quick reflection, not between tight calls.",
+      "status": "Not planned",
+      "notes": "Fezziwig After Dark evening.",
+      "version": 1
+    },
+    {
+      "id": "2026-12-13",
+      "date": "2026-12-13",
+      "venue": "MATINEE 2 pm + strike listed",
+      "goal": "Close the series",
+      "capture": "Final door/night shot; stage before/after strike if safe",
+      "shot_ids": "T06 T07",
+      "approach": "Do not film in active hazardous strike areas",
+      "pickup": "Possible final adult cast/crew reflection after commitments.",
+      "status": "Not planned",
+      "notes": "Strike listed; precise time not supplied.",
+      "version": 1
+    }
+  ],
+  "footage": [],
+  "comments": [],
+  "cards": [
+    {
+      "id": "AC-001",
+      "actor_name": "Glen",
+      "scene_title": "The Legend of Jim — Who is Jim?",
+      "thread": "The Legend of Jim S",
+      "status": "Idea",
+      "session_date": null,
+      "actor_brief": "You are helping Bryan build the set, but people keep referring to Jim S, the former set builder. You have not met him.",
+      "actor_direction": "Keep doing your actual work. Respond naturally when Jim is mentioned; you do not need to act confused if you are not.",
+      "questions": "How many times have you heard Jim mentioned?\nHave you actually met Jim S?\nWhat do people expect Jim to know?\nWho is doing the construction now?",
+      "optional_action": "During a natural pause, you might ask: Who is Jim?",
+      "director_goal": "Establish the repeated Jim S references without making Glen seem incompetent.",
+      "director_notes": "Possible later payoff: Jim S says, “Have you asked Bryan?” Do not share this punchline as an actor instruction.",
+      "shot_ids": "B01, B02, B03, B04, B05",
+      "version": 1
+    },
+    {
+      "id": "AC-002",
+      "actor_name": "Bryan",
+      "scene_title": "One director, many opinions",
+      "thread": "Bryan vs Everybody",
+      "status": "Idea",
+      "session_date": null,
+      "actor_brief": "The audience is following the complexity of coordinating a large theater production.",
+      "actor_direction": "Talk about what you are trying to accomplish today; answer in your own words.",
+      "questions": "What is the main thing you need everyone to understand today?\nWhich scene is the trickiest to coordinate?\nHow do you know when a rehearsal went well?",
+      "optional_action": "Optional brief interview after rehearsal; do not interrupt work.",
+      "director_goal": "Capture an authentic organizing perspective to contrast with actual rehearsals.",
+      "director_notes": "Keep conflicts playful and fair; do not fabricate an actor dispute.",
+      "shot_ids": "R02, R03, R04",
+      "version": 1
+    },
+    {
+      "id": "AC-003",
+      "actor_name": "Johanna",
+      "scene_title": "Understudy conspiracy",
+      "thread": "Understudy Conspiracy",
+      "status": "Idea",
+      "session_date": null,
+      "actor_brief": "The documentary explores how much preparation understudying requires, with the crew treating your readiness with unnecessary suspicion.",
+      "actor_direction": "Explain your real preparation. No suggestion of actual sabotage or wrongdoing.",
+      "questions": "How much material have you needed to learn?\nHow prepared do you have to be?\nWhat do people misunderstand about understudying?",
+      "optional_action": "If there is time after rehearsal, record a brief interview with your script nearby.",
+      "director_goal": "Film real dedication that the edit may frame as a lighthearted mock mystery.",
+      "director_notes": "Johanna was understudy, not Courtney. Keep the character distinction.",
+      "shot_ids": "S06, S07",
+      "version": 1
+    },
+    {
+      "id": "AC-004",
+      "actor_name": "Adult choir member / leader",
+      "scene_title": "Four Boxes, One Choir",
+      "thread": "Four Boxes One Choir",
+      "status": "Idea",
+      "session_date": null,
+      "actor_brief": "The documentary is attempting to understand how the choir gets organized into four positions.",
+      "actor_direction": "Explain how the boxes really work and what makes transitions challenging.",
+      "questions": "Can you explain the four boxes?\nHow does everybody know where to go?\nWhat changes when the group rehearses onstage?",
+      "optional_action": "Point out the boxes or marks when rehearsal is not active.",
+      "director_goal": "Establish the running organizational joke without filming children without permission.",
+      "director_notes": "Verify the actual setup with choir leadership first.",
+      "shot_ids": "S04, S05, E10",
+      "version": 1
+    }
+  ],
+  "history": [],
+  "links": [
+    {
+      "id": "CL-001",
+      "source_key": "story:Missing Turkey",
+      "target_key": "story:Colonial Ghost",
+      "relation": "Red herring",
+      "description": "Possible crossover: the missing prop is blamed on the rumored ghost. A creative idea, not an established scene.",
+      "status": "Idea",
+      "version": 1
+    },
+    {
+      "id": "CL-002",
+      "source_key": "story:The Legend of Jim S",
+      "target_key": "story:Bryan vs Everybody",
+      "relation": "Callback",
+      "description": "People invoke Jim S while Bryan is leading the actual construction. Proposed recurring callback.",
+      "status": "Idea",
+      "version": 1
+    },
+    {
+      "id": "CL-003",
+      "source_key": "story:Four Boxes One Choir",
+      "target_key": "story:Bryan vs Everybody",
+      "relation": "Cross-over",
+      "description": "Choir logistics could feed into the running joke about coordinating everyone.",
+      "status": "Idea",
+      "version": 1
+    }
+  ]
+};
+
+const cloudConfig = {url:"",publishableKey:""};
+
+
+
+const TABLES = { shots: 'shots', beats: 'story_beats', sessions: 'sessions', cards: 'actor_cards', footage: 'footage', comments: 'comments', links: 'board_links' };
+const STORAGE_KEY = 'acc-behind-scenes-demo-v1';
+const NAV = [
+  ['today','Today','calendar'], ['shots','Shot list','list'], ['stories','Storylines','film'], ['board','Connections','network'],
+  ['cards','Actor cards','user'], ['sessions','Schedule','clock'], ['footage','Footage log','video'], ['settings','Settings','settings']
+];
+const SVG = {
+  calendar:'<rect x="3" y="5" width="18" height="16" rx="2"/><path d="M16 3v4M8 3v4M3 10h18"/>',
+  list:'<path d="M8 6h13M8 12h13M8 18h13"/><path d="M3 6h.01M3 12h.01M3 18h.01"/>',
+  film:'<rect x="3" y="4" width="18" height="16" rx="2"/><path d="M7 4l4 16M13 4l4 16"/>',
+  network:'<circle cx="5" cy="5" r="2"/><circle cx="19" cy="7" r="2"/><circle cx="9" cy="19" r="2"/><path d="m7 6 10 1M6 7l2 10M18 9l-7 8"/>',
+  clock:'<circle cx="12" cy="12" r="9"/><path d="M12 7v5l4 2"/>',
+  video:'<rect x="3" y="5" width="14" height="14" rx="2"/><path d="m17 10 4-3v10l-4-3"/>',
+  user:'<circle cx="12" cy="8" r="4"/><path d="M4 21v-2a8 8 0 0 1 16 0v2"/>',
+  settings:'<circle cx="12" cy="12" r="3"/><path d="M12 2v3M12 19v3M2 12h3M19 12h3M4.9 4.9 7 7M17 17l2.1 2.1M19.1 4.9 17 7M7 17l-2.1 2.1"/>',
+  plus:'<path d="M12 5v14M5 12h14"/>',check:'<path d="m5 12 4 4L19 6"/>',
+  chevron:'<path d="m9 18 6-6-6-6"/>',back:'<path d="m15 18-6-6 6-6"/>',
+  search:'<circle cx="11" cy="11" r="7"/><path d="m20 20-4-4"/>',
+  more:'<circle cx="5" cy="12" r="1"/><circle cx="12" cy="12" r="1"/><circle cx="19" cy="12" r="1"/>',
+  edit:'<path d="M12 20h9M16 4a2 2 0 0 1 3 3L9 17l-4 1 1-4L16 4Z"/>',
+  pin:'<path d="M20 10c0 5-8 12-8 12S4 15 4 10a8 8 0 1 1 16 0Z"/><circle cx="12" cy="10" r="2"/>',
+  sun:'<circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/>',
+  download:'<path d="M12 3v12m-4-4 4 4 4-4M4 17v4h16v-4"/>',
+  close:'<path d="M5 5 19 19M19 5 5 19"/>',
+  camera:'<path d="M5 6h4l2-2h4l2 2h2a2 2 0 0 1 2 2v11H3V8a2 2 0 0 1 2-2Z"/><circle cx="12" cy="12" r="3"/>',
+  folder:'<path d="M3 7a2 2 0 0 1 2-2h5l2 2h7a2 2 0 0 1 2 2v10H3Z"/>',
+  copy:'<rect x="8" y="8" width="12" height="12" rx="2"/><path d="M16 8V5a2 2 0 0 0-2-2H5a2 2 0 0 0-2 2v9a2 2 0 0 0 2 2h3"/>',
+  link:'<path d="M10 14 14 10M8 10h-2a4 4 0 0 0 0 8h4a4 4 0 0 0 4-4M16 14h2a4 4 0 0 0 0-8h-4a4 4 0 0 0-4 4"/>',
+  alert:'<path d="m12 3 10 18H2L12 3Z"/><path d="M12 9v5M12 17h.01"/>',
+  signout:'<path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4M16 17l5-5-5-5M21 12H9"/>',
+  upload:'<path d="M12 21V9m-4 4 4-4 4 4M4 6V3h16v3"/>',
+};
+const I = (name,size=19) => `<svg width="${size}" height="${size}" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">${SVG[name]||SVG.more}</svg>`;
+const esc = value => String(value ?? '').replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+const attr = esc;
+const clone = obj => JSON.parse(JSON.stringify(obj));
+const textdate = value => !value ? 'Unscheduled' : new Date(value + 'T12:00:00').toLocaleDateString(undefined,{weekday:'short',month:'short',day:'numeric'});
+const dateToday = () => { const d = new Date(); return [d.getFullYear(),String(d.getMonth()+1).padStart(2,'0'),String(d.getDate()).padStart(2,'0')].join('-'); };
+const uid = pre => pre + '-' + (globalThis.crypto?.randomUUID?.() || Math.random().toString(36).slice(2));
+const app = document.getElementById('app');
+const rootModal = document.getElementById('modal-root');
+const ui = { nav:'today', more:false, cardSearch:'', cardStatus:'All', shotSearch:'', shotStatus:'All', shotCategory:'All', shotPriority:'All', selectedSession:'', selectedThread:'', boardFocus:(window.innerWidth<700?'story:Missing Turkey':'All'), boardShowCards:true, storyDetail:false, sessionDetail:false, authReady:false, connected:false, busy:false };
+const cloudEnabled = Boolean(cloudConfig.url?.trim() && cloudConfig.publishableKey?.trim());
+let supabase = null; let user = null; let data = clone(initialData); let subscription = null; let refreshTimer = null;
+
+function toast(message,isError=false) {
+  const t = document.getElementById('toast');
+  t.textContent = message; t.className = `toast show ${isError?'error':''}`;
+  clearTimeout(toast.timer); toast.timer = setTimeout(()=>t.className='toast',3600);
+}
+function restoreDemo() {
+  try { const saved=JSON.parse(localStorage.getItem(STORAGE_KEY)); if(saved && ['shots','beats','sessions','footage','comments'].every(k=>Array.isArray(saved[k]))) {
+    data={...clone(initialData),...saved,cards:Array.isArray(saved.cards)?saved.cards:clone(initialData.cards),history:Array.isArray(saved.history)?saved.history:[],links:Array.isArray(saved.links)?saved.links:clone(initialData.links)};
+    const oldJim=data.cards.find(c=>c.id==='AC-001'&&c.thread==='The Legend of Jim'&&(c.version||1)===1);
+    if(oldJim) oldJim.thread='The Legend of Jim S';
+  } }
+  catch(e) { console.warn('Cannot load local demo',e); }
+}
+function saveDemo() { try {localStorage.setItem(STORAGE_KEY, JSON.stringify(data));} catch(e) {toast('Could not save to this device',true);} }
+function find(table,id) {return data[table].find(r=>r.id===id);}
+function nshots(status) {return data.shots.filter(s=>status.includes(s.status)).length;}
+function progress(shots) { return shots.length ? Math.round(100*shots.filter(s=>['Captured','Usable'].includes(s.status)).length/shots.length) : 0; }
+function parseIds(value) {
+  const ids=[]; const str=String(value||'');
+  for(const m of str.matchAll(/([A-Z]+)(\d{2,3})(?:-([A-Z]+)(\d{2,3}))?/g)){
+    const [_,p,n,p2,n2]=m;
+    if(p2 && p===p2 && Number(n2)-Number(n)<=25) for(let j=Number(n);j<=Number(n2);j++) ids.push(p+String(j).padStart(n.length,'0'));
+    else ids.push(p+n);
+  }
+  return [...new Set(ids)];
+}
+function knownThreadList() {return [...new Set([...data.beats.map(b=>b.thread),...data.shots.map(s=>s.thread),...data.cards.map(c=>c.thread)].filter(t=>t && t!=='General'))].sort();}
+function statusClass(status) {return /Usable|Complete|Ready|Captured/i.test(status)?'done':/reshoot|Blocked|Missing/i.test(status)?'warn':'neutral';}
+function chip(label,type='neutral') {return `<span class="chip ${type}">${esc(label)}</span>`;}
+function itemCountLabel() {return `${data.shots.length} shots · ${data.beats.length} story beats · ${data.sessions.length} sessions`;}
+function coverLine(label,value) {return value ? `<div class="detail-line"><span>${esc(label)}</span><p>${esc(value)}</p></div>`:'';}
+function formatNote(v) {return esc(v||'').replace(/\n/g,'<br>');}
+
+async function init() {
+  restoreDemo();
+  if(!cloudEnabled){ui.authReady=true;ui.connected=false;render(); registerPwa();return;}
+  try {
+    const lib=await import('https://esm.sh/@supabase/supabase-js@2');
+    supabase=lib.createClient(cloudConfig.url.trim(),cloudConfig.publishableKey.trim());
+    const {data:authData,error}=await supabase.auth.getSession();
+    if(error) throw error;
+    user=authData.session?.user||null;
+    supabase.auth.onAuthStateChange((_event,session)=>{
+      const changed=user?.id!==session?.user?.id;
+      user=session?.user||null;
+      if(changed){ if(subscription){supabase.removeChannel(subscription);subscription=null;} if(user) loadCloud(true); else {ui.connected=false;render();} }
+    });
+    ui.authReady=true;
+    if(user) await loadCloud(true); else render();
+  } catch(e) {ui.authReady=true; ui.connected=false;render();toast('Cloud connection failed: '+e.message,true);}
+  registerPwa();
+}
+function registerPwa() {if('serviceWorker' in navigator && location.protocol!=='file:') navigator.serviceWorker.register('/sw.js').catch(console.warn);}
+async function loadCloud(addListener=false) {
+  if(!supabase||!user)return;
+  try {
+    const {data:membership,error:memberError}=await supabase.from('app_members').select('email,active').eq('email',user.email.toLowerCase()).maybeSingle();
+    if(memberError)throw memberError;
+    if(!membership?.active){ui.connected=false; render(); return;}
+    const all=await Promise.all(Object.entries(TABLES).map(async ([k,db])=>{
+      const {data:rows,error}=await supabase.from(db).select('*').limit(5000);
+      if(error)throw error; return [k,rows||[]];
+    }));
+    data=Object.fromEntries(all);
+    const {data:history,error:historyError}=await supabase.from('card_history').select('*').order('changed_at',{ascending:false}).limit(500);
+    if(historyError)throw historyError;
+    data.history=history||[];
+    ui.connected=true;
+    render();
+    if(addListener && !subscription){
+      subscription=supabase.channel('acc-planner').on('postgres_changes',{event:'*',schema:'public'},()=>{
+        clearTimeout(refreshTimer);refreshTimer=setTimeout(()=>loadCloud(false),450);
+      }).subscribe();
+    }
+  } catch(e){ui.connected=false; render();toast('Cloud data error: '+e.message,true);}
+}
+async function persist(kind, record,original=null) {
+  const table=TABLES[kind];
+  if(!table)throw Error('Unknown record type');
+  const payload={...record};
+  delete payload.updated_at; delete payload.created_at;
+  if(kind==='footage' && !payload.shot_id) payload.shot_id=null;
+  if(!cloudEnabled){
+    const at=data[kind].findIndex(r=>r.id===payload.id);
+    if(kind==='cards'){data.history ||= []; data.history.unshift({id:uid('H'),card_id:payload.id,change_kind:at>=0?'Edited':'Created',editor:'Local demo',changed_at:new Date().toISOString(),before_state:at>=0?clone(data[kind][at]):null,after_state:clone(payload)});}
+    if(at>=0) data[kind][at]={...data[kind][at],...payload,version:(data[kind][at].version||1)+1,updated_at:new Date().toISOString()};
+    else data[kind].unshift({...payload,version:1,updated_at:new Date().toISOString()});
+    saveDemo();render();return;
+  }
+  if(!user||!ui.connected) throw Error('Sign in and connect to save changes');
+  let response;
+  if(original){
+    payload.version=(original.version||1)+1;
+    response=await supabase.from(table).update(payload).eq('id',original.id).eq('version',original.version||1).select().maybeSingle();
+    if(!response.error && !response.data){await loadCloud();throw Error('Someone edited this record first. Data refreshed; reopen and try again.');}
+  } else response=await supabase.from(table).insert(payload).select().single();
+  if(response.error)throw response.error;
+  await loadCloud(false);
+}
+async function erase(kind,id) {
+  if(!confirm('Delete this record? This cannot be undone.'))return;
+  try{
+    if(cloudEnabled){if(!user||!ui.connected)throw Error('Not connected');const {error}=await supabase.from(TABLES[kind]).delete().eq('id',id);if(error)throw error;await loadCloud();}
+    else {if(kind==='cards'){data.history ||= [];data.history.unshift({id:uid('H'),card_id:id,change_kind:'Deleted',editor:'Local demo',changed_at:new Date().toISOString(),before_state:clone(find(kind,id)),after_state:null});}data[kind]=data[kind].filter(r=>r.id!==id);saveDemo();render();}
+    closeModal();toast('Record deleted');
+  }catch(e){toast(e.message,true);}
+}
+function sectionHeader(title,subtitle,action='') {return `<div class="section-head"><div><h2>${esc(title)}</h2>${subtitle?`<p>${esc(subtitle)}</p>`:''}</div>${action}</div>`;}
+function button(label, action, id='',extra='') {return `<button class="btn ${extra}" data-action="${action}" data-id="${attr(id)}">${label}</button>`;}
+function pageTop(eyebrow,title,desc,action='') {return `<div class="page-top"><div><div class="eyebrow">${esc(eyebrow)}</div><h1>${esc(title)}</h1><p>${esc(desc)}</p></div>${action}</div>`;}
+function shotCard(s,compact=false) {
+  const captured=['Captured','Usable'].includes(s.status);
+  return `<article class="shot-card ${captured?'shot-done':''}">
+    <div class="shot-top"><div class="shot-id">${esc(s.id)}</div><div class="shot-tags">${chip(s.priority,s.priority==='Must'?'gold':'neutral')}${chip(s.status,statusClass(s.status))}</div></div>
+    <button class="card-title-link" data-action="detail" data-kind="shots" data-id="${attr(s.id)}">${esc(s.title)} ${I('chevron',15)}</button>
+    <p class="shot-tech">${I('camera',15)} ${esc(s.technique||'Documentary observation')}</p>
+    ${compact?'':`<p class="shot-instruction">${esc(s.instructions)}</p>`}
+    ${!compact&&s.thread!=='General'?`<p class="muted-sm">Story: ${esc(s.thread)}</p>`:''}
+    <div class="card-actions">
+      ${button(captured?I('check',15)+' Captured':I('check',15)+' Mark captured','capture',s.id,captured?'soft':'primary')}
+      ${button('Log footage','log',s.id,'ghost')}
+      ${button(I('edit',16),'edit',s.id,'icon-btn')}
+    </div>
+  </article>`;
+}
+function sessionForToday() {
+  const list=[...data.sessions].sort((a,b)=>a.date.localeCompare(b.date));
+  return list.find(s=>s.id===ui.selectedSession)||list.find(s=>s.date>=dateToday())||list.at(-1);
+}
+function renderToday() {
+  const session=sessionForToday();
+  if(!session)return `<div class="empty">No sessions yet. Add one from Schedule.</div>`;
+  const mapped=parseIds(session.shot_ids).map(id=>find('shots',id)).filter(Boolean);
+  const list=mapped.length?mapped:data.shots.filter(s=>s.priority==='Must').slice(0,7);
+  const perc=progress(list);
+  const future=[...data.sessions].sort((a,b)=>a.date.localeCompare(b.date));
+  return `${pageTop('Your shooting desk','Today’s shoot','Pick a rehearsal, see the story goal, and capture only what matters.',button(I('plus',17)+' Add shot','new','shots','primary'))}
+  <div class="stats">
+    <div class="stat"><b>${data.shots.length}</b><span>Total shots</span></div>
+    <div class="stat"><b>${nshots(['Captured','Usable'])}</b><span>Captured</span></div>
+    <div class="stat"><b>${data.cards.length}</b><span>Actor cards</span></div>
+  </div>
+  <div class="session-hero">
+    <div class="hero-head"><div><div class="eyebrow gold-text">SHOOTING WINDOW</div><h2>${esc(textdate(session.date))}</h2><p>${I('pin',16)} ${esc(session.venue)}</p></div>${chip(session.status,statusClass(session.status))}</div>
+    <label class="screen-label" for="session-picker">Choose a rehearsal</label>
+    <select id="session-picker" class="input">${future.map(s=>`<option value="${attr(s.id)}" ${s.id===session.id?'selected':''}>${esc(textdate(s.date))} — ${esc(s.venue)}</option>`).join('')}</select>
+    <div class="hero-plan"><span>DIRECTOR'S GOAL</span><strong>${esc(session.goal)}</strong><p>${esc(session.capture)}</p></div>
+    <div class="progress-label"><span>Selected shots captured</span><b>${perc}%</b></div><div class="progress"><span style="width:${perc}%"></span></div>
+    <div class="notice">${I('alert',17)} ${esc(session.approach||'Do not interrupt active rehearsal.')}</div>
+    ${session.pickup?`<div class="pickup"><b>Outside rehearsal:</b> ${esc(session.pickup)}</div>`:''}
+    <div class="hero-actions">${button('Open session plan','detail-session',session.id,'subtle')}${button('All sessions','nav','sessions','ghost')}</div>
+  </div>
+  <div class="hero-actions">${button('Open actor cards','nav','cards','subtle')}</div>
+  ${sectionHeader('Priority shots','From this session’s director plan',button('View all shots '+I('chevron',15),'nav','shots','text'))}
+  <div class="shot-grid">${list.map(s=>shotCard(s,true)).join('')||'<p>No shot IDs on this session yet.</p>'}</div>
+  <div class="footer-note">If a planned moment does not happen naturally, leave it for another rehearsal or schedule a separate pickup.</div>`;
+}
+function renderShots() {
+  const list=data.shots.filter(s=>
+    (ui.shotStatus==='All'||s.status===ui.shotStatus)&&
+    (ui.shotCategory==='All'||s.category===ui.shotCategory)&&
+    (ui.shotPriority==='All'||s.priority===ui.shotPriority)&&
+    [s.id,s.title,s.technique,s.instructions,s.thread,s.opportunity].join(' ').toLowerCase().includes(ui.shotSearch.toLowerCase())
+  ).sort((a,b)=>(a.priority==='Must'?0:1)-(b.priority==='Must'?0:1) || a.id.localeCompare(b.id));
+  const options=(values,selected)=>values.map(v=>`<option ${v===selected?'selected':''}>${esc(v)}</option>`).join('');
+  return `${pageTop('Production library','Shot list',`${data.shots.length} shots with filming instructions, story connections and review status.`,button(I('plus',17)+' New shot','new','shots','primary'))}
+  <div class="filter-box">
+    <label class="search-wrap">${I('search',18)}<input id="shot-search" placeholder="Search shots, characters or techniques" value="${attr(ui.shotSearch)}" /></label>
+    <div class="filter-row">
+      <select id="shot-status" class="input" aria-label="Filter by status">${options(['All','Not shot','Planned','Captured','Usable','Needs reshoot'],ui.shotStatus)}</select>
+      <select id="shot-priority" class="input" aria-label="Filter by priority">${options(['All','Must','Useful','Optional'],ui.shotPriority)}</select>
+      <select id="shot-category" class="input" aria-label="Filter by category">${options(['All',...[...new Set(data.shots.map(s=>s.category))].sort()],ui.shotCategory)}</select>
+    </div>
+  </div>
+  <div class="list-summary">Showing ${list.length} shots</div>
+  <div class="shot-grid">${list.map(s=>shotCard(s)).join('')||'<div class="empty">No matching shots. Adjust the filters or add a shot.</div>'}</div>`;
+}
+// A derived evidence wall: storylines and actor cards are live records, NOT duplicate board entities.
+// Only optional editorial connections are persisted as board_links.
+function boardStoryKey(thread) {return 'story:'+thread;}
+function boardCardKey(id) {return 'card:'+id;}
+function boardNodes() {
+  return [
+    ...knownThreadList().map(name=>({key:boardStoryKey(name),kind:'story',title:name,sub:`${data.beats.filter(b=>b.thread===name).length} story beats`})),
+    ...data.cards.map(c=>({key:boardCardKey(c.id),kind:'card',title:c.actor_name||'Unnamed performer',sub:c.scene_title||'Actor card',thread:c.thread,recordId:c.id}))
+  ];
+}
+function boardGraph() {
+  const all=boardNodes();const available=new Set(all.map(n=>n.key));
+  const auto=data.cards.filter(c=>available.has(boardStoryKey(c.thread))).map(c=>({id:'auto:'+c.id,source_key:boardStoryKey(c.thread),target_key:boardCardKey(c.id),relation:'Actor card',status:'Confirmed',automatic:true}));
+  const manual=data.links.filter(l=>available.has(l.source_key)&&available.has(l.target_key)&&l.source_key!==l.target_key&&l.status!=='Cut').map(l=>({...l,automatic:false}));
+  const links=[...auto,...manual];
+  const focus=ui.boardFocus==='All'||!available.has(ui.boardFocus)?'All':ui.boardFocus;
+  let visible=new Set(all.map(n=>n.key));
+  if(focus!=='All'){
+    visible=new Set([focus]);for(const l of links){if(l.source_key===focus)visible.add(l.target_key);if(l.target_key===focus)visible.add(l.source_key);}
+  }
+  const nodes=all.filter(n=>visible.has(n.key)&&(ui.boardShowCards||n.kind==='story'));
+  const show=new Set(nodes.map(n=>n.key));
+  return {all,nodes,links:links.filter(l=>show.has(l.source_key)&&show.has(l.target_key)),focus};
+}
+function boardPositioning(nodes) {
+  const stories=nodes.filter(n=>n.kind==='story');const cards=nodes.filter(n=>n.kind==='card');
+  const pos=new Map();
+  if(window.innerWidth<700){
+    // Phone: the evidence wall becomes a single, readable vertical column.
+    // The focus selector keeps the default case to a manageable few pins.
+    const ordered=[...stories,...cards];
+    ordered.forEach((node,i)=>pos.set(node.key,{x:74,y:42+i*137}));
+    return {pos,height:Math.max(340,ordered.length*137+80),width:330};
+  }
+  const rows=Math.max(3,Math.ceil(stories.length/2),cards.length);
+  const height=Math.max(520,rows*142+110);
+  stories.forEach((node,i)=>pos.set(node.key,{x:i%2===0?24:290,y:65+Math.floor(i/2)*142}));
+  cards.forEach((node,i)=>pos.set(node.key,{x:566,y:65+i*142}));
+  return {pos,height,width:790};
+}
+function renderBoard() {
+  const graph=boardGraph(), layout=boardPositioning(graph.nodes), linked=new Set(graph.links.flatMap(l=>[l.source_key,l.target_key]));
+  const selector=[{key:'All',title:'All storylines'},...graph.all.filter(n=>n.kind==='story')].map(n=>`<option value="${attr(n.key)}" ${ui.boardFocus===n.key?'selected':''}>${esc(n.title)}</option>`).join('');
+  const pos=layout.pos;
+  const paths=graph.links.map((l,i)=>{
+    const a=pos.get(l.source_key),b=pos.get(l.target_key);if(!a||!b)return '';
+    const ax=a.x+88,ay=a.y+48,bx=b.x+88,by=b.y+48;
+    const mx=(ax+bx)/2+(window.innerWidth<700?(i%2?75:-75):0);const wiggle=18*(i%2?1:-1);
+    return `<path d="M${ax} ${ay} Q${mx} ${(ay+by)/2+wiggle} ${bx} ${by}" class="string-path ${l.automatic?'auto':l.status==='Idea'?'idea':'confirmed'}" />`;
+  }).join('');
+  const pins=graph.nodes.map((n,i)=>{
+    const xy=pos.get(n.key);if(!xy)return '';
+    return `<button type="button" class="evidence-card ${n.kind} ${linked.has(n.key)?'linked':''}" style="left:${xy.x}px;top:${xy.y}px;--turn:${(i%5-2)*0.7}deg" data-action="board-node" data-id="${attr(n.key)}" aria-label="Open ${attr(n.kind)}: ${attr(n.title)}"><span class="paper-pin"></span><span class="evidence-kicker">${n.kind==='story'?'STORY FILE':'ACTOR CARD'}</span><strong>${esc(n.title)}</strong><small>${esc(n.sub)}</small></button>`;
+  }).join('');
+  const allManual=[...data.links].sort((a,b)=>a.status.localeCompare(b.status)||a.relation.localeCompare(b.relation));
+  const byKey=new Map(graph.all.map(n=>[n.key,n.title]));
+  const list=allManual.map(l=>`<div class="connection-item"><div><strong>${esc(byKey.get(l.source_key)||'Missing: '+l.source_key)} <span class="gold-text">↔</span> ${esc(byKey.get(l.target_key)||'Missing: '+l.target_key)}</strong><div class="muted-sm">${esc(l.relation||'Connection')} · ${esc(l.status||'Idea')}${!byKey.has(l.source_key)||!byKey.has(l.target_key)?' · Needs reconnection':''}</div>${l.description?`<p>${esc(l.description)}</p>`:''}</div><div class="card-actions">${button(I('edit',16)+' Edit','board-edit',l.id,'subtle')}${button(I('close',15),'board-delete',l.id,'ghost')}</div></div>`).join('');
+  return `${pageTop('Story development','Connections board','A detective-style wall for the mockumentary. Cards and story names come directly from the live records; add only the connections you want.',button(I('plus',17)+' Add connection','board-new','','primary'))}
+  <div class="board-toolbox"><label class="field"><span>Focus the board</span><select class="input" id="board-focus">${selector}</select></label><label class="board-check"><input type="checkbox" id="board-show-cards" ${ui.boardShowCards?'checked':''}/> Include actor cards</label><div class="board-key"><span class="legend-string confirmed"></span> Connection <span class="legend-string idea"></span> Idea <span class="legend-string auto"></span> Actor card</div></div>
+  <div class="board-scroller" role="region" aria-label="Scrollable connections board" tabindex="0"><div class="board-surface" style="width:${layout.width}px;height:${layout.height}px"><svg class="board-wires" width="${layout.width}" height="${layout.height}" viewBox="0 0 ${layout.width} ${layout.height}" aria-hidden="true">${paths}</svg>${pins||'<div class="board-blank">No stories or actor cards yet. Add one to begin.</div>'}</div></div>
+  <div class="board-hint">Tap a pinned card to open its source record. Red strings represent editable story connections. Dotted strings show automatic actor-card associations. Scroll sideways on a phone.</div>
+  ${sectionHeader('Connections & theories',`${allManual.length} editable connections`,button(I('plus',17)+' New link','board-new','','subtle'))}
+  <div class="connection-list">${list||'<div class="empty">No deliberate connections yet. Link two storylines to create a callback, crossover, or red herring.</div>'}</div>
+  <div class="note-panel">${I('alert',18)} Connections labeled “Idea” are proposed story devices, not established events. Changing an actor card immediately updates its position and associations here. Use “Rename storyline” on a story pin to change that name throughout the filming records.</div>`;
+}
+function openBoardLinkEditor(id=null) {
+  const current=id?find('links',id):null;
+  const nodes=boardNodes();
+  const options=value=>`<option value="">Select a card or storyline</option>`+nodes.map(n=>`<option value="${attr(n.key)}" ${n.key===value?'selected':''}>${n.kind==='story'?'Story: ':'Actor: '}${esc(n.title)}${n.kind==='card'?' · '+esc(n.sub):''}</option>`).join('');
+  rootModal.innerHTML=`<div class="modal-scrim" data-action="close-modal"></div><section class="modal" role="dialog" aria-modal="true" aria-label="Connection editor"><div class="modal-head"><div><div class="eyebrow">CONNECTIONS BOARD</div><h2>${current?'Edit connection':'Add a connection'}</h2></div>${button(I('close',18),'close-modal','','icon-btn')}</div><form id="board-link-form" data-id="${attr(id||'')}"><div class="editor-grid"><label class="field wide"><span>From</span><select class="input" name="source_key" required>${options(current?.source_key)}</select></label><label class="field wide"><span>To</span><select class="input" name="target_key" required>${options(current?.target_key)}</select></label><label class="field"><span>Relationship</span><select class="input" name="relation">${['Callback','Cross-over','Red herring','Shared character','Clue','Other'].map(x=>`<option ${x===(current?.relation||'Callback')?'selected':''}>${x}</option>`).join('')}</select></label><label class="field"><span>Development status</span><select class="input" name="status">${['Idea','Confirmed','Cut'].map(x=>`<option ${x===(current?.status||'Idea')?'selected':''}>${x}</option>`).join('')}</select></label><label class="field wide"><span>Why they connect / how the callback works</span><textarea class="input" name="description" rows="3" placeholder="For example: The missing turkey becomes part of the ghost rumor.">${esc(current?.description||'')}</textarea></label></div><div class="modal-actions">${current?button('Delete','board-delete',id,'danger'):''}<button type="submit" class="btn primary">Save connection</button></div></form></section>`;
+}
+function openBoardStoryTools(name) {
+ rootModal.innerHTML=`<div class="modal-scrim" data-action="close-modal"></div><section class="modal" role="dialog" aria-modal="true" aria-label="Storyline actions"><div class="modal-head"><div><div class="eyebrow">STORY FILE</div><h2>${esc(name)}</h2></div>${button(I('close',18),'close-modal','','icon-btn')}</div><div class="modal-button-row">${button('Open storyline','board-story-go',name,'primary')}${button('Rename storyline','board-story-rename',name,'subtle')}</div><p class="muted-sm">Changing the title here also updates linked actor cards, shots, story beats and board connections.</p></section>`;
+}
+function openBoardStoryRename(oldName) {
+  rootModal.innerHTML=`<div class="modal-scrim" data-action="close-modal"></div><section class="modal" role="dialog" aria-modal="true" aria-label="Rename storyline"><div class="modal-head"><div><div class="eyebrow">UPDATE ALL REFERENCES</div><h2>Rename storyline</h2></div>${button(I('close',18),'close-modal','','icon-btn')}</div><form id="rename-story-form" data-old="${attr(oldName)}"><div class="editor-grid"><label class="field wide"><span>Current name</span><input class="input" value="${attr(oldName)}" disabled /></label><label class="field wide"><span>New name</span><input class="input" name="new_name" value="${attr(oldName)}" maxlength="160" required /></label></div><div class="notice">Updates story beats, shot assignments, actor cards and the connection strings together. Changes appear on the shared board.</div><div class="modal-actions"><button class="btn primary" type="submit">Rename everywhere</button></div></form></section>`;
+}
+async function renameStoryline(oldName,newName) {
+  newName=String(newName||'').trim();if(!newName||newName==='General')throw Error('Choose a valid storyline name.');
+  if(oldName===newName)return;
+  if(knownThreadList().includes(newName))throw Error('That storyline already exists. Choose another name.');
+  if(cloudEnabled){
+    if(!user||!ui.connected)throw Error('Not connected');
+    const {error}=await supabase.rpc('acc_rename_storyline',{old_name:oldName,new_name:newName});
+    if(error)throw error;await loadCloud(false);
+  }else{
+    let total=0;
+    for(const key of ['shots','beats','cards'])for(const record of data[key])if(record.thread===oldName){record.thread=newName;record.version=(record.version||1)+1;total++;}
+    if(!total)throw Error('That storyline is not available anymore.');
+    for(const l of data.links){if(l.source_key===boardStoryKey(oldName))l.source_key=boardStoryKey(newName);if(l.target_key===boardStoryKey(oldName))l.target_key=boardStoryKey(newName);}
+    saveDemo();
+  }
+  if(ui.boardFocus===boardStoryKey(oldName))ui.boardFocus=boardStoryKey(newName);
+  if(ui.selectedThread===oldName)ui.selectedThread=newName;
+  render();
+}
+function renderStories() {
+  const threads=knownThreadList();
+  const current=threads.includes(ui.selectedThread)?ui.selectedThread:threads[0]; ui.selectedThread=current;
+  const bs=data.beats.filter(b=>b.thread===current);
+  const complete=bs.filter(b=>/Captured|Ready|Complete/i.test(b.status)).length;
+  const storyList=`<div class="thread-list">${threads.map(thread=>{
+    const b=data.beats.filter(x=>x.thread===thread);const n=b.filter(x=>/Captured|Ready|Complete/i.test(x.status)).length;
+    return `<button class="thread-row ${thread===current?'active':''}" data-action="thread" data-id="${attr(thread)}"><div><strong>${esc(thread)}</strong><span>${n} of ${b.length} beats covered</span></div>${I('chevron',17)}</button>`;
+  }).join('')}</div>`;
+  const detail=`<div class="story-detail">
+    <div class="detail-panel-head"><div><div class="eyebrow">STORY THREAD</div><h2>${esc(current||'No story')}</h2><p>${complete} / ${bs.length} beats covered</p></div><div class="card-actions">${button('Actor card','new-card-thread',current,'ghost')}${button(I('plus',16)+' Add beat','new-beat',current,'subtle')}</div></div>
+    <div class="progress"><span style="width:${bs.length?Math.round(complete*100/bs.length):0}%"></span></div>
+    ${bs.map((b,i)=>`<article class="beat-card"><div class="beat-head"><div class="beat-no">${String(i+1).padStart(2,'0')}</div><div class="beat-copy"><strong>${esc(b.beat)}</strong><div>${chip(b.status,statusClass(b.status))} ${chip(b.priority,b.priority==='Must'?'gold':'neutral')}</div></div>${button(I('edit',17),'edit-beat',b.id,'icon-btn')}</div><p>${esc(b.evidence)}</p>${coverLine('When',b.opportunity)}${coverLine('Related shots',b.shot_ids)}<div class="beat-action">${button('Mark covered','cover-beat',b.id,'ghost')}${button('Notes','detail-beat',b.id,'ghost')}</div></article>`).join('')||'<div class="empty">No beats yet. Add one to develop this storyline.</div>'}
+  </div>`;
+  return `${pageTop('Narrative coverage','Storylines','Track the setup, evidence, escalation and payoff—not just the footage.',button(I('plus',17)+' New beat','new','beats','primary'))}
+    <div class="stories-layout"><div class="story-list-area ${ui.storyDetail?'mobile-hide':''}">${sectionHeader('All storylines','Choose a thread')}${storyList}</div>
+    <div class="story-detail-area ${ui.storyDetail?'mobile-show':''}"><div class="mobile-only">${button(I('back',17)+' All storylines','stories-back','','ghost')}</div>${detail}</div></div>`;
+}
+function renderCards() {
+  const cards=[...data.cards].filter(c =>
+    (ui.cardStatus==='All'||c.status===ui.cardStatus)&&
+    [c.actor_name,c.scene_title,c.thread,c.actor_brief,c.questions].join(' ').toLowerCase().includes(ui.cardSearch.toLowerCase())
+  ).sort((a,b)=>a.actor_name.localeCompare(b.actor_name)||a.scene_title.localeCompare(b.scene_title));
+  return `${pageTop('Interview & scene prompts','Actor cards','Shared editable briefs for Jeremy, Courtney and Alex. Use between rehearsals, not during active scenes.',button(I('plus',17)+' Add actor card','new','cards','primary'))}
+    <div class="filter-box"><label class="search-wrap">${I('search',18)}<input id="card-search" placeholder="Search actor, scene or storyline" value="${attr(ui.cardSearch)}" /></label>
+      <div class="filter-row"><select class="input" id="card-status" aria-label="Filter actor cards"><option>All</option>${['Idea','Ready','Scheduled','Filmed','Reviewed'].map(x=>`<option ${ui.cardStatus===x?'selected':''}>${x}</option>`).join('')}</select></div></div>
+    <div class="list-summary">Showing ${cards.length} of ${data.cards.length} cards · Any approved editor can add or adjust questions.</div>
+    <div class="shot-grid">${cards.map(c=>`<article class="shot-card"><div class="shot-top"><span class="shot-id">${esc(c.actor_name||'Unassigned')}</span>${chip(c.status,statusClass(c.status))}</div>
+      <button class="card-title-link" data-action="detail" data-kind="cards" data-id="${attr(c.id)}">${esc(c.scene_title)} ${I('chevron',15)}</button>
+      <p class="shot-tech">${I('film',15)} ${esc(c.thread||'General')}</p><p class="shot-instruction">${esc(c.actor_brief||'Add the scene context for this performer.')}</p>
+      <div class="muted-sm">${c.questions?esc(c.questions.split('\n').filter(Boolean).length)+' interview questions':''}${c.session_date?' · '+esc(textdate(c.session_date)):''}</div>
+      <div class="card-actions">${button('Actor brief','actor-brief',c.id,'primary')}${button(I('edit',16)+' Edit','edit-cards',c.id,'subtle')}<button class="btn ghost" data-action="detail" data-kind="cards" data-id="${attr(c.id)}">Notes &amp; history</button></div>
+    </article>`).join('')||'<div class="empty">No actor cards yet. Add a scene and questions for someone to film.</div>'}</div>`;
+}
+function actorBriefText(c) {
+  return `ACC · BEHIND THE SCENES\n${c.scene_title}\nFor: ${c.actor_name}\n\nTHE SCENE\n${c.actor_brief}\n\nWHAT TO DO\n${c.actor_direction||'Answer naturally. No scripted lines required.'}\n${c.optional_action?'\nOPTIONAL MOMENT\n'+c.optional_action:''}\n\nINTERVIEW QUESTIONS\n${c.questions||'Questions to be selected during filming.'}\n\nPlan this for a break or separate pickup; do not interrupt rehearsal.`;
+}
+function openActorBrief(id) {
+  const c=find('cards',id);if(!c)return;
+  rootModal.innerHTML=`<div class="modal-scrim" data-action="close-modal"></div><section class="modal" role="dialog" aria-modal="true" aria-label="Shareable actor brief"><div class="modal-head"><div><div class="eyebrow">ACTOR VIEW · SHAREABLE</div><h2>${esc(c.scene_title)}</h2><p class="muted-sm">${esc(c.actor_name)}</p></div>${button(I('close',19),'close-modal','','icon-btn')}</div><div class="modal-scroll"><div class="notice">The actor brief does not include director-only notes or the intended punchline.</div>
+    ${coverLine('The scene',c.actor_brief)}${coverLine('What we need you to do',c.actor_direction)}${coverLine('Optional moment',c.optional_action)}${coverLine('Possible interview questions',c.questions)}
+    <div class="modal-button-row">${button(I('copy',16)+' Copy actor brief','copy-brief',id,'primary')}${button('Edit card','edit-cards',id,'subtle')}</div></div></section>`;
+}
+function renderSessions() {
+  const sessions=[...data.sessions].sort((a,b)=>a.date.localeCompare(b.date));
+  const current=sessions.find(s=>s.id===ui.selectedSession)||sessionForToday();
+  if(current)ui.selectedSession=current.id;
+  const list=`<div class="thread-list">${sessions.map(s=>`<button class="thread-row ${current?.id===s.id?'active':''}" data-action="session" data-id="${attr(s.id)}"><div><strong>${esc(textdate(s.date))}</strong><span>${esc(s.venue)}</span></div>${I('chevron',17)}</button>`).join('')}</div>`;
+  const detail=current?`<div class="story-detail"><div class="detail-panel-head"><div><div class="eyebrow">REHEARSAL / PICKUP</div><h2>${esc(textdate(current.date))}</h2><p>${I('pin',16)} ${esc(current.venue)}</p></div>${button(I('edit',17)+' Edit','edit-session',current.id,'subtle')}</div>
+    <div class="detail-card">${coverLine('Narrative goal',current.goal)}${coverLine('Must capture',current.capture)}${coverLine('Shot IDs',current.shot_ids)}${coverLine('No-interruption approach',current.approach)}${coverLine('Outside rehearsal',current.pickup)}${coverLine('Notes',current.notes)}<div class="space-top">${chip(current.status,statusClass(current.status))}</div></div>
+    ${sectionHeader('Related shots','Based on the director plan')}
+    <div class="shot-grid small-grid">${parseIds(current.shot_ids).map(id=>find('shots',id)).filter(Boolean).map(s=>shotCard(s,true)).join('')||'<div class="empty">No related master shot IDs entered.</div>'}</div>
+   </div>`:'<div class="empty">No sessions yet.</div>';
+  return `${pageTop('Filming schedule','Rehearsals & pickups','Plan around rehearsals. Record pickups separately without interrupting the cast.',button(I('plus',17)+' Add session','new','sessions','primary'))}
+    <div class="stories-layout"><div class="story-list-area ${ui.sessionDetail?'mobile-hide':''}">${sectionHeader('Planned sessions',`${sessions.length} sessions`)}${list}</div>
+    <div class="story-detail-area ${ui.sessionDetail?'mobile-show':''}"><div class="mobile-only">${button(I('back',17)+' All sessions','sessions-back','','ghost')}</div>${detail}</div></div>`;
+}
+function renderFootage() {
+  const f=[...data.footage].sort((a,b)=>(b.taken_on||'').localeCompare(a.taken_on||''));
+  return `${pageTop('Edit-ready references','Footage log','Record each usable take, original filename, camera and where it was saved.',button(I('plus',17)+' Log footage','new','footage','primary'))}
+    <div class="note-panel">${I('folder',18)} Store original videos in your private shared Drive folder; paste the filename or access-controlled link here. This app stores references, not video uploads.</div>
+    <div class="footage-grid">${f.map(x=>`<article class="footage-card"><div class="shot-top">${chip(x.review_status,statusClass(x.review_status))}<small>${esc(textdate(x.taken_on))}</small></div><h3>${esc(x.title)}</h3><p>${esc(x.camera||'Camera not recorded')}${x.shot_id?' · '+esc(x.shot_id):''}</p><div class="filename">${I('folder',16)} ${esc(x.file_ref||'No filename yet')}</div><p class="footage-notes">${esc(x.notes)}</p><div class="card-actions">${button('Details','detail-footage',x.id,'ghost')}${button(I('edit',17)+' Edit','edit-footage',x.id,'subtle')}${validWebLink(x.file_ref)?`<a class="btn ghost" target="_blank" rel="noopener noreferrer" href="${attr(x.file_ref)}">${I('link',15)} Open</a>`:''}</div></article>`).join('')||'<div class="empty">No footage logged yet. Use “Log footage” from a shot or add a new record here.</div>'}</div>`;
+}
+function validWebLink(x) {try {return ['https:','http:'].includes(new URL(x).protocol);}catch{return false;}}
+function renderSettings() {
+  return `${pageTop('Team tools','Settings','Shared access, backups and filming defaults.')}
+    <div class="settings-grid">
+      <section class="settings-card"><h3>${I('camera',19)} Camera standard</h3><p><b>Primary:</b> Courtney · Galaxy S24<br><b>B-roll:</b> Jeremy · iPhone 16 Pro Max</p><p>Match existing Galaxy footage where practical. For new shoots, use horizontal 4K / 30 fps, SDR, and a 1× lens.</p></section>
+      <section class="settings-card"><h3>${I('settings',19)} Current mode</h3><p><b>${cloudEnabled?'Cloud configuration present':'Local demo mode'}</b></p><p>${cloudEnabled?(ui.connected?'Shared database connected for '+esc(user?.email):'Not connected. Sign in with an approved team account.'):'Changes save only in this browser. To sync with Courtney and Alex, connect a Supabase project using config.js and the SQL scripts.'}</p>${cloudEnabled&&user?button('Sign out','signout','','subtle'):''}</section>
+      <section class="settings-card"><h3>${I('download',19)} Back up all records</h3><p>Export shots, story beats, actor cards, board connections, rehearsal sessions, footage references and comments as a JSON backup.</p>${button(I('download',17)+' Export JSON','export','','primary')}</section>
+      <section class="settings-card"><h3>${I('upload',19)} Restore local demo</h3><p>Import a saved JSON backup into this browser. Only available in local demo mode, and replaces local data.</p>${!cloudEnabled?`<label class="btn subtle upload-label">Choose JSON file<input id="import-file" type="file" accept=".json,application/json" hidden /></label>`:'<p class="muted-sm">Cloud records are seeded with the database setup scripts. Do not replace a live shared database with an unreviewed backup.</p>'}</section>
+      <section class="settings-card"><h3>${I('list',19)} Original director plan</h3><p>Imported from the ACC director workbook: ${itemCountLabel()}.</p><p>Source instructions, story threads and filming opportunities remain editable.</p></section>
+      <section class="settings-card"><h3>${I('alert',19)} Rehearsal rules</h3><p>No interruptions, staged retakes or blocking of active paths. Adult-focused coverage unless permission for minors is confirmed. Approve any separate pickups with rehearsal leadership.</p></section>
+    </div>`;
+}
+function pageBody(){switch(ui.nav){case'today':return renderToday();case'shots':return renderShots();case'stories':return renderStories();case'board':return renderBoard();case'cards':return renderCards();case'sessions':return renderSessions();case'footage':return renderFootage();default:return renderSettings();}}
+function navButton([id,label,ic],mobile=false){return `<button class="${mobile?'bottom-link':'nav-link'} ${ui.nav===id?'active':''}" data-action="nav" data-id="${id}" aria-label="${label}">${I(ic,mobile?21:18)}<span>${esc(label)}</span></button>`;}
+function render(){
+  if(!ui.authReady){app.innerHTML='<div class="splash">Connecting to project…</div>';return;}
+  if(cloudEnabled && (!user||!ui.connected)){
+    app.innerHTML=`<main class="login-shell"><div class="login-card"><div class="brand-mark">${I('video',27)}</div><div class="eyebrow">ACC PRODUCTION</div><h1>Behind the Scenes</h1><p>Your shared filming desk. Sign in with your approved team email.</p>${!user?`<form id="login-form"><label>Email address<input name="email" type="email" class="input" placeholder="you@example.com" required /></label><button class="btn primary full" type="submit">Send sign-in link</button></form>`:`<div class="notice">This account is not in the approved team list or the database is unavailable. Contact the project administrator.</div>${button('Sign out','signout','','subtle')}`}<p class="tiny">Private project · Members only</p></div></main>`;
+    return;
+  }
+  const current=ui.nav; const title=NAV.find(x=>x[0]===current)?.[1]||'Today';
+  app.innerHTML=`<div class="shell">
+    <aside class="sidebar"><div class="brand"><div class="brand-symbol">${I('video',23)}</div><div><strong>ACC</strong><span>BEHIND THE SCENES</span></div></div><div class="sidebar-caption">PRODUCTION</div><nav>${NAV.map(x=>navButton(x)).join('')}</nav><div class="side-bottom"><div class="side-note">${I('camera',18)} <span>Keep rehearsals uninterrupted.</span></div><div class="connection ${cloudEnabled?'cloud':'demo'}"><span class="dot"></span>${cloudEnabled?'Live shared database':'Local demo · this device only'}</div></div></aside>
+    <div class="workspace"><header class="topbar"><div class="top-title"><div class="small-logo">${I('video',20)}</div><div><strong>ACC <span>· Behind the Scenes</span></strong><small>${esc(title)}</small></div></div><div class="top-actions"><div class="top-mode">${cloudEnabled?'● Shared':'● Local demo'}</div>${button(I('plus',18)+' Add shot','new','shots','top-add')}</div></header>
+    ${!cloudEnabled?`<div class="demo-strip">Local demo: changes stay on this device. Connect Supabase before relying on shared updates with Courtney and Alex. ${button('Setup','nav','settings','text')}</div>`:''}
+    <main class="content">${pageBody()}</main></div>
+    <nav class="bottom-nav" aria-label="Mobile navigation">${[NAV[0],NAV[1],NAV[3]].map(x=>navButton(x,true)).join('')}<button class="bottom-link ${!['today','shots','cards'].includes(ui.nav)?'active':''}" data-action="more">${I('more',21)}<span>More</span></button></nav>
+    ${ui.more?`<div class="more-scrim" data-action="close-more"></div><div class="more-menu"><div class="more-head"><b>All sections</b>${button(I('close',19),'close-more','','icon-btn')}</div>${NAV.map(x=>navButton(x)).join('')}</div>`:''}
+  </div>`;
+}
+
+// Field definitions are also used for editing existing records: every setting is reachable on mobile.
+const FIELDS={
+  shots:[['title','Shot / subject','text',true],['status','Status','select',false,['Not shot','Planned','Captured','Usable','Needs reshoot']],['priority','Priority','select',false,['Must','Useful','Optional']],['category','Category','text'],['technique','Camera technique','text'],['instructions','How to capture','textarea'],['purpose','Editing purpose','textarea'],['opportunity','Best opportunity','text'],['people','People / restrictions','text'],['thread','Story thread','text'],['captured_at','Capture date','date'],['camera','Camera / operator','text'],['file_ref','Original file / folder','text'],['notes','Production notes','textarea'],['review_notes','Review / pickup notes','textarea']],
+  beats:[['thread','Storyline','text',true],['beat','Story beat','text',true],['evidence','What audience should see','textarea'],['status','Status','select',false,['Not planned','Planned','In progress','Captured','Ready','Blocked']],['priority','Priority','select',false,['Must','Useful','Optional']],['opportunity','Best opportunity','text'],['shot_ids','Related shot IDs','text'],['approach','Film without disruption','textarea'],['notes','Notes / clip references','textarea']],
+  cards:[['actor_name','Actor / crew member','text',true],['scene_title','Scene / card title','text',true],['thread','Storyline','text',true],['status','Status','select',false,['Idea','Ready','Scheduled','Filmed','Reviewed']],['session_date','Possible filming date','date'],['actor_brief','Scene setup (visible to actor)','textarea'],['actor_direction','What we need them to do (visible to actor)','textarea'],['questions','Possible questions — one per line (visible to actor)','textarea'],['optional_action','Optional filmed moment (visible to actor)','textarea'],['director_goal','Director goal / comedy beat (internal)','textarea'],['director_notes','Director notes / hidden payoff (internal)','textarea'],['shot_ids','Related shot IDs','text']],
+  sessions:[['date','Session date','date',true],['venue','Venue / time','text'],['goal','Narrative goal','text'],['capture','Must capture','textarea'],['shot_ids','Related shot IDs','text'],['approach','No-interruption approach','textarea'],['pickup','Outside rehearsal pickup','textarea'],['status','Status','select',false,['Not planned','Planned','In progress','Completed','Cancelled']],['notes','Notes','textarea']],
+  footage:[['title','Take description','text',true],['shot_id','Linked shot ID','text'],['taken_on','Date recorded','date'],['camera','Camera / operator','text'],['file_ref','Video filename or private Drive link','text'],['review_status','Review status','select',false,['Needs review','Usable','Select','Needs reshoot','Rejected']],['notes','Edit notes / timecode','textarea']]
+};
+function formField(field,value=''){
+  const [key,label,type,required,opts]=field;
+  const val=value??'';
+  if(type==='select'){const choices=[...new Set([...(opts||[]),...(val&&!(opts||[]).includes(val)?[val]:[])])];return `<label class="field"><span>${esc(label)}</span><select class="input" name="${key}">${choices.map(o=>`<option ${o===val?'selected':''}>${esc(o)}</option>`).join('')}</select></label>`;}
+  if(type==='textarea')return `<label class="field wide"><span>${esc(label)}</span><textarea class="input" rows="3" name="${key}">${esc(val)}</textarea></label>`;
+  return `<label class="field"><span>${esc(label)}</span><input class="input" type="${type}" name="${key}" ${required?'required':''} value="${attr(val)}" /></label>`;
+}
+function openEditor(kind,id=null,defaults={}) {
+  const current=id?find(kind,id):null;
+  const r=current||defaults;
+  const title= current?'Edit '+({shots:'shot',beats:'story beat',sessions:'session',cards:'actor card',footage:'footage'}[kind]):'New '+({shots:'shot',beats:'story beat',sessions:'session',cards:'actor card',footage:'footage'}[kind]);
+  rootModal.innerHTML=`<div class="modal-scrim" data-action="close-modal"></div><section class="modal" role="dialog" aria-modal="true" aria-label="${title}"><div class="modal-head"><div><div class="eyebrow">ACC PRODUCTION</div><h2>${title}</h2></div>${button(I('close',19),'close-modal','','icon-btn')}</div><form id="editor-form" data-kind="${kind}" data-id="${attr(id||'')}"><div class="editor-grid">${FIELDS[kind].map(f=>formField(f,r[f[0]])).join('')}</div><div class="modal-actions">${current?button('Delete','delete-'+kind,id,'danger'):''}<button class="btn primary" type="submit">Save changes</button></div></form></section>`;
+  document.querySelector('.modal .input')?.focus();
+}
+function closeModal(){rootModal.innerHTML='';}
+function openDetail(kind,id) {
+  const r=find(kind,id); if(!r)return;
+  const comments=data.comments.filter(c=>c.target_type===TABLES[kind]&&c.target_id===id).sort((a,b)=>(a.created_at||'').localeCompare(b.created_at||''));
+  const labels= kind==='shots'? [['Technique',r.technique],['How to film',r.instructions],['Editing purpose',r.purpose],['When',r.opportunity],['Storyline',r.thread],['People / restrictions',r.people],['Camera',r.camera],['Original clip',r.file_ref],['Production notes',r.notes],['Review notes',r.review_notes],['Last edited by',r.updated_by]] :
+     kind==='beats'? [['What audience sees',r.evidence],['When',r.opportunity],['Related shots',r.shot_ids],['Without interruption',r.approach],['Notes',r.notes],['Last edited by',r.updated_by]] :
+     kind==='cards'? [['Scene setup',r.actor_brief],['Actor directions',r.actor_direction],['Questions',r.questions],['Optional filmed moment',r.optional_action],['Filming date',r.session_date],['Related shots',r.shot_ids],['Director goal — internal',r.director_goal],['Director notes — internal',r.director_notes],['Last edited by',r.updated_by]] :
+     kind==='sessions'? [['Director goal',r.goal],['Must capture',r.capture],['Shot IDs',r.shot_ids],['Without interruption',r.approach],['Separate pickup',r.pickup],['Notes',r.notes],['Last edited by',r.updated_by]] :
+     [['Shot ID',r.shot_id],['Camera',r.camera],['Date',r.taken_on],['File / link',r.file_ref],['Review notes',r.notes],['Last edited by',r.updated_by]];
+  const head=kind==='shots'?r.title:kind==='beats'?r.thread+' · '+r.beat:kind==='sessions'?textdate(r.date):kind==='cards'?r.actor_name+' · '+r.scene_title:r.title;
+  rootModal.innerHTML=`<div class="modal-scrim" data-action="close-modal"></div><section class="modal" role="dialog" aria-modal="true" aria-label="Details"><div class="modal-head"><div><div class="eyebrow">${esc(r.id)}</div><h2>${esc(head)}</h2></div>${button(I('close',19),'close-modal','','icon-btn')}</div><div class="modal-scroll">
+    <div class="detail-meta">${chip(r.status||r.review_status||'Needs review',statusClass(r.status||r.review_status||''))}${r.priority?chip(r.priority,r.priority==='Must'?'gold':'neutral'):''}</div>
+    ${labels.map(([l,v])=>coverLine(l,v)).join('')}
+    <div class="modal-button-row">${button(I('edit',17)+' Edit details','edit-'+kind,r.id,'subtle')}${kind==='shots'?button(I('camera',17)+' Log take','log',r.id,'primary'):''}${kind==='cards'?button('Actor brief','actor-brief',r.id,'primary'):''}</div>${kind==='cards'?`<div class="comment-section"><h3>Change history</h3>${(data.history||[]).filter(h=>h.card_id===r.id).slice(0,8).map(h=>`<p class="muted-sm">${esc(h.change_kind||'Edited')} · ${esc(h.editor||'Team member')} · ${esc(new Date(h.changed_at).toLocaleString())}</p>`).join('')||'<p class="muted-sm">No changes logged yet.</p>'}</div>`:''}
+    <div class="comment-section"><h3>Team notes</h3><div class="comments">${comments.map(c=>`<div class="comment"><b>${esc(c.author_email||'Team member')}</b><p>${formatNote(c.body)}</p></div>`).join('')||'<p class="muted-sm">No notes yet.</p>'}</div>
+    <form id="comment-form" data-kind="${kind}" data-id="${attr(id)}"><textarea class="input" name="body" rows="2" placeholder="Add an observation or editing note" required></textarea><button class="btn subtle" type="submit">Add note</button></form></div></div></section>`;
+}
+function exportJson() {
+  const payload={format:'ACC_BTS_v1',exported_at:new Date().toISOString(),data};
+  const blob=new Blob([JSON.stringify(payload,null,2)],{type:'application/json'});
+  const url=URL.createObjectURL(blob);const a=document.createElement('a');a.href=url;a.download=`acc-bts-backup-${dateToday()}.json`;a.click();URL.revokeObjectURL(url);
+  toast('Backup downloaded');
+}
+async function importJson(file) {
+  try{
+    const json=JSON.parse(await file.text());const d=json.data||json;
+    if(!['shots','beats','sessions','footage','comments'].every(k=>Array.isArray(d[k])))throw Error('Not an ACC filming backup');
+    if(!confirm('Replace the local demo records with this backup?'))return;
+    data={...clone(initialData),...d,cards:Array.isArray(d.cards)?d.cards:clone(initialData.cards),history:Array.isArray(d.history)?d.history:[],links:Array.isArray(d.links)?d.links:clone(initialData.links)};saveDemo();render();toast('Local backup restored');
+  }catch(e){toast(e.message,true);}
+}
+function chooseNav(id){ui.nav=id;ui.more=false;window.scrollTo({top:0,behavior:'instant'});render();}
+function handleAction(el){
+  const action=el.dataset.action,id=el.dataset.id||'',kind=el.dataset.kind||'';
+  if(action==='nav'){chooseNav(id);return;}
+  if(action==='more'){ui.more=true;render();return;}
+  if(action==='close-more'){ui.more=false;render();return;}
+  if(action==='close-modal'){closeModal();return;}
+  if(action==='new'){openEditor(id,null,id==='cards'?{status:'Idea'}:id==='sessions'?{date:dateToday(),status:'Not planned'}:id==='footage'?{taken_on:dateToday(),camera:'iPhone 16 Pro Max',review_status:'Needs review'}:{});return;}
+  if(action==='new-card-thread'){openEditor('cards',null,{thread:id,status:'Idea'});return;}
+  if(action==='actor-brief'){openActorBrief(id);return;}
+  if(action==='copy-brief'){const c=find('cards',id);if(c){if(navigator.clipboard?.writeText)navigator.clipboard.writeText(actorBriefText(c)).then(()=>toast('Actor brief copied')).catch(()=>toast('Could not copy. Select the text manually.',true));else toast('Copy is available on the deployed HTTPS app. Select and copy the brief here.',true);}return;}
+  if(action==='board-new'){openBoardLinkEditor();return;}
+  if(action==='board-edit'){openBoardLinkEditor(id);return;}
+  if(action==='board-delete'){erase('links',id);return;}
+  if(action==='board-node'){if(id.startsWith('card:'))openDetail('cards',id.slice(5));else if(id.startsWith('story:'))openBoardStoryTools(id.slice(6));return;}
+  if(action==='board-story-go'){ui.selectedThread=id;ui.storyDetail=true;closeModal();chooseNav('stories');return;}
+  if(action==='board-story-rename'){openBoardStoryRename(id);return;}
+  if(action==='new-beat'){openEditor('beats',null,{thread:id,status:'Not planned',priority:'Must'});return;}
+  if(action==='detail'){openDetail(kind,id);return;}
+  if(action==='detail-beat'){openDetail('beats',id);return;}
+  if(action==='detail-session'){openDetail('sessions',id);return;}
+  if(action==='detail-footage'){openDetail('footage',id);return;}
+  if(action==='edit'){openEditor('shots',id);return;}
+  if(action==='edit-beat'){openEditor('beats',id);return;}
+  if(action==='edit-session'){openEditor('sessions',id);return;}
+  if(action==='edit-footage'){openEditor('footage',id);return;}
+  if(/^edit-/.test(action)){openEditor(action.slice(5),id);return;}
+  if(/^delete-/.test(action)){erase(action.slice(7),id);return;}
+  if(action==='log'){openEditor('footage',null,{title:find('shots',id)?.title||'',shot_id:id,taken_on:dateToday(),camera:'iPhone 16 Pro Max',review_status:'Needs review'});return;}
+  if(action==='capture'){const s=find('shots',id);if(!s)return;persist('shots',{...s,status:['Captured','Usable'].includes(s.status)?'Not shot':'Captured',captured_at:['Captured','Usable'].includes(s.status)?null:dateToday()},s).then(()=>toast('Shot status updated')).catch(e=>toast(e.message,true));return;}
+  if(action==='cover-beat'){const b=find('beats',id);persist('beats',{...b,status:'Captured'},b).then(()=>toast('Story beat updated')).catch(e=>toast(e.message,true));return;}
+  if(action==='thread'){ui.selectedThread=id;ui.storyDetail=true;render();return;}
+  if(action==='session'){ui.selectedSession=id;ui.sessionDetail=true;render();return;}
+  if(action==='stories-back'){ui.storyDetail=false;render();return;}
+  if(action==='sessions-back'){ui.sessionDetail=false;render();return;}
+  if(action==='export'){exportJson();return;}
+  if(action==='signout'){supabase?.auth.signOut().catch(e=>toast(e.message,true));return;}
+}
+async function handleSubmit(form){
+  if(form.id==='login-form'){
+    const email=new FormData(form).get('email').toString().trim().toLowerCase();
+    try{const {error}=await supabase.auth.signInWithOtp({email,options:{shouldCreateUser:false,emailRedirectTo:location.origin+location.pathname}});if(error)throw error;toast('Check your email for the sign-in link');}
+    catch(e){toast(e.message,true);}return;
+  }
+  if(form.id==='comment-form'){
+    const fd=new FormData(form),body=String(fd.get('body')||'').trim();if(!body)return;
+    try{await persist('comments',{id:uid('C'),target_type:TABLES[form.dataset.kind],target_id:form.dataset.id,body,author_email:user?.email||'Local demo',version:1,created_at:new Date().toISOString()});openDetail(form.dataset.kind,form.dataset.id);toast('Note added');}catch(e){toast(e.message,true);}return;
+  }
+  if(form.id==='board-link-form'){
+    const id=form.dataset.id;const original=id?find('links',id):null;const fd=new FormData(form);
+    const record=original?{...original}:{id:uid('L')};
+    for(const k of ['source_key','target_key','relation','status','description'])record[k]=String(fd.get(k)||'').trim();
+    const keys=new Set(boardNodes().map(n=>n.key));
+    if(!keys.has(record.source_key)||!keys.has(record.target_key)){toast('Choose two available cards or storylines',true);return;}
+    if(record.source_key===record.target_key){toast('A connection needs two different items',true);return;}
+    if(data.links.some(l=>l.id!==record.id && ((l.source_key===record.source_key&&l.target_key===record.target_key)||(l.target_key===record.source_key&&l.source_key===record.target_key)))){toast('This pair is already connected. Edit the existing connection.',true);return;}
+    try{await persist('links',record,original);closeModal();toast('Connection saved');}catch(e){toast(e.message,true);}return;
+  }
+  if(form.id==='rename-story-form'){
+    try{await renameStoryline(form.dataset.old,String(new FormData(form).get('new_name')||''));closeModal();toast('Storyline renamed throughout the project');}catch(e){toast(e.message,true);}return;
+  }
+  if(form.id!=='editor-form')return;
+  const kind=form.dataset.kind,id=form.dataset.id,old=id?find(kind,id):null;
+  const formData=new FormData(form);const record=old?{...old}:{id:kind==='shots'?uid('U'):kind==='beats'?uid('B'):kind==='sessions'?uid('S'):kind==='cards'?uid('A'):uid('F')};
+  for(const field of FIELDS[kind])record[field[0]]=String(formData.get(field[0])??'').trim();
+  if(kind==='shots'){record.captured_at ||= null;record.priority ||= 'Useful';record.status ||= 'Not shot';record.thread ||= 'General';}
+  if(kind==='cards'){record.status ||= 'Idea';record.session_date ||= null;}
+  if(kind==='footage'){record.shot_id ||= null;record.taken_on ||= null;}
+  if(kind==='sessions'){
+    if(!record.date){toast('Date required',true);return;}
+    if(!old && data.sessions.some(s=>s.id===record.date))record.id=uid('S');
+    else if(!old)record.id=record.date;
+  }
+  try{const submit=form.querySelector('[type=submit]');submit.disabled=true;submit.textContent='Saving…';await persist(kind,record,old);closeModal();toast('Saved');}
+  catch(e){toast(e.message,true);const submit=form.querySelector('[type=submit]');submit.disabled=false;submit.textContent='Save changes';}
+}
+document.addEventListener('click',e=>{
+  const el=e.target.closest('[data-action]');if(el){e.preventDefault();handleAction(el);}
+});
+document.addEventListener('submit',e=>{e.preventDefault();handleSubmit(e.target);});
+document.addEventListener('change',e=>{
+  if(e.target.id==='session-picker'){ui.selectedSession=e.target.value;render();}
+  if(e.target.id==='board-focus'){ui.boardFocus=e.target.value;render();}
+  if(e.target.id==='board-show-cards'){ui.boardShowCards=e.target.checked;render();}
+  if(e.target.id==='card-status'){ui.cardStatus=e.target.value;render();}
+  if(e.target.id==='shot-status'){ui.shotStatus=e.target.value;render();}
+  if(e.target.id==='shot-category'){ui.shotCategory=e.target.value;render();}
+  if(e.target.id==='shot-priority'){ui.shotPriority=e.target.value;render();}
+  if(e.target.id==='import-file'&&e.target.files[0])importJson(e.target.files[0]);
+});
+document.addEventListener('input',e=>{
+  if(e.target.id==='card-search'){ui.cardSearch=e.target.value;const start=e.target.selectionStart;render();const el=document.getElementById('card-search');el?.focus();try{el?.setSelectionRange(start,start);}catch{};return;}
+  if(e.target.id==='shot-search'){
+    ui.shotSearch=e.target.value;
+    const start=e.target.selectionStart;render();
+    const el=document.getElementById('shot-search');el?.focus();try{el?.setSelectionRange(start,start);}catch{}
+  }
+});
+window.addEventListener('online',()=>{if(cloudEnabled&&user)loadCloud();});
+window.addEventListener('keydown',e=>{if(e.key==='Escape')closeModal();});
+init();
+</script></body></html>
