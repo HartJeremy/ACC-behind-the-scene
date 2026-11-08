@@ -98,7 +98,7 @@ async function init() {
   } catch(e) {ui.authReady=true; ui.connected=false;render();toast('Cloud connection failed: '+e.message,true);}
   registerPwa();
 }
-function registerPwa() {if('serviceWorker' in navigator && location.protocol!=='file:') navigator.serviceWorker.register('/sw.js').catch(console.warn);}
+function registerPwa() {if('serviceWorker' in navigator && location.protocol!=='file:') navigator.serviceWorker.register(new URL('../sw.js', import.meta.url)).catch(console.warn);}
 async function loadCloud(addListener=false) {
   if(!supabase||!user)return;
   try {
